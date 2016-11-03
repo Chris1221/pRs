@@ -29,5 +29,6 @@ tg:
 		--score ~/repos/aprs/data-raw/tg_0.05.raw \
 		--out ~/repos/aprs/data-raw/tg
 
-
+combine:
+	Rscript combine.R
 
