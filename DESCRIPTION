@@ -1,0 +1,11 @@
+Package: aprs
+Type: Package
+Title: Creation and analysis of additive polygenic risk scores.
+Version: 1.0
+Date: 2016-10-31
+Author: Christopher B Cole, Frank Dudbridge
+Maintainer: Christopher B Cole <chris.c.1221@gmail.com> 
+Description: Impliments methods described in my thesis project as well as Robert Meiers theoretical work relating to creating additive PRS models from comorbid conditions. 
+License: MIT 
+Imports: Rcpp (>= 0.12.7), RcppEigen (>= 0.3.2.9.0), RcppArmadillo
+LinkingTo: Rcpp, RcppEigen, RcppArmadillo
