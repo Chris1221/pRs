@@ -61,9 +61,14 @@ phen %<>% mutate(new = (sqrt(ldl_n_i) * ldl_rg * sqrt(h2_ldl / h1) * ldl_score) 
 		(sqrt(hdl_n_i) * hdl_rg * sqrt(h2_hdl / h1) * hdl_score) +
 		(sqrt(tg_n_i) * tg_rg * sqrt(h2_tg / h1) * tg_score))
 
+phen %<>% mutate(cad_new = cad_score + new)
+phen %<>% mutate(cad_simple = cad_score + simple) 
+
 # Regression results
 
 lm(cad ~ new, data = phen) %>% summary
 lm(cad ~ simple, data = phen) %>% summary
-
+lm(cad ~ cad_score, data = phen) %>% summary
+lm(cad ~ cad_new, data = phen) %>% summary
+lm(cad ~ cad_smple, data = phen) %>% summary
 
