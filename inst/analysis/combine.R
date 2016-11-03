@@ -69,6 +69,6 @@ phen %<>% mutate(cad_simple = cad_score + simple)
 lm(cad ~ new, data = phen) %>% summary
 lm(cad ~ simple, data = phen) %>% summary
 lm(cad ~ cad_score, data = phen) %>% summary
-lm(cad ~ cad + new, data = phen) %>% summary
-lm(cad ~ cad + simple, data = phen) %>% summary
+lm(cad ~ cad_score + new, data = phen) %>% summary
+lm(cad ~ cad_score + simple, data = phen) %>% summary
 
