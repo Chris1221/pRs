@@ -70,5 +70,5 @@ lm(cad ~ new, data = phen) %>% summary
 lm(cad ~ simple, data = phen) %>% summary
 lm(cad ~ cad_score, data = phen) %>% summary
 lm(cad ~ cad_new, data = phen) %>% summary
-lm(cad ~ cad_smple, data = phen) %>% summary
+lm(cad ~ cad_simple, data = phen) %>% summary
 
