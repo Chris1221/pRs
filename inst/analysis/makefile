@@ -20,7 +20,7 @@ hdl:
 		--score ~/repos/aprs/data-raw/hdl_0.05.raw \
 		--out ~/repos/aprs/data-raw/hdl
 
-hdl:
+tg:
 	# Subset and produce the .raw file
 	Rscript tg.R		
 	
