@@ -7,6 +7,8 @@ setwd("~/repos/aprs/data-raw")
 ldl <- fread("ldl.profile", h = T)
 hdl <- fread("hdl.profile", h = T)
 tg <- fread("tg.profile", h = T)
+cad <- fread("cad.profile", h = T)
+
 
 phen <- fread("cad.phen", h =T)
 
@@ -25,7 +27,14 @@ phen <- tg %>%
 	select(IID, tg_score) %>%
 	merge(phen, by = "IID") 
 
+phen <- cad %>%
+	mutate(cad_score = SCORE) %>%
+	select(IID, cad_score) %>%
+	merge(phen, by = "IID") 
+
+
 phen %<>% mutate(simple = tg_score + hdl_score + ldl_score)
+
 
 
 ### Working on new score
