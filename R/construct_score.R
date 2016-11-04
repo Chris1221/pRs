@@ -56,7 +56,7 @@ construct_score <- function(
 		# ----------- #
 		flog.info("Reading in and formatting the raw file.")
 	
-		raw <- fread(file, h = T)
+		raw <- as.data.frame(fread(file, h = T))
 
 		# Take in column names and cut off ending
 		raw_names <- colnames(raw)
@@ -67,6 +67,8 @@ construct_score <- function(
 		new_names <- c(raw_names[1:6], unlist(rs_names))
 
 		colnames(raw) <- new_names
+		
+		raw_only_rs <- raw[,7:length(colnames(raw))]
 
 		# ------------- #
 		flog.info("Reading in assoc file and deciding on SNPs to include.")
@@ -74,10 +76,18 @@ construct_score <- function(
 		assoc_file <- as.data.frame(fread(assoc, h = T))
 		
 		possible_p_names <- c("P", "p", "p-value", "p_value")
+		p_name <- possible_p_names[possible_p_names %in% colnames(assoc_file)]
+		include <- assoc_file[assoc_file[,p_name] < p,] 
 
-		p_name <- possible_p_names[possible_p_names %in% colnames(assoc_file)] 
+		subset_raw <- raw[ , colnames(raw) %in% include$rsid ] 
 	
-		include <- assoc_file[assoc_file[,p_name] < p,] 	
+		# REALLY REALLY REALLY SLOW VERSION. WILL HAVE TO IMPROVE BY A LOT.
+
+		for( rs in colnames(raw)) {
+		
+			subset_raw[,colnames(subset_raw) == rs] <- subset_raw[,colnames(subset_raw) == rs]*include$beta[include$rsid == rs]
+
+		} #end for 
 	
 	
 	} else if(mode == "multiple"){

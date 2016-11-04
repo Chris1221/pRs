@@ -1,0 +1,42 @@
+
+@----------------------------------------------------------@
+|        PLINK!       |     v1.07      |   10/Aug/2009     |
+|----------------------------------------------------------|
+|  (C) 2009 Shaun Purcell, GNU General Public License, v2  |
+|----------------------------------------------------------|
+|  For documentation, citation & bug-report instructions:  |
+|        http://pngu.mgh.harvard.edu/purcell/plink/        |
+@----------------------------------------------------------@
+
+Web-based version check ( --noweb to skip )
+Recent cached web-check found... OK, v1.07 is current
+
++++ PLINK 1.9 is now available! See above website for details +++ 
+
+Writing this text to log file [ toy.log ]
+Analysis started: Fri Nov  4 14:18:58 2016
+
+Options in effect:
+	--file toy
+	--recodeA
+	--out toy
+
+2 (of 2) markers to be included from [ toy.map ]
+2 individuals read from [ toy.ped ] 
+2 individuals with nonmissing phenotypes
+Assuming a disease phenotype (1=unaff, 2=aff, 0=miss)
+Missing phenotype value is also -9
+1 cases, 1 controls and 0 missing
+2 males, 0 females, and 0 of unspecified sex
+Before frequency and genotyping pruning, there are 2 SNPs
+2 founders and 0 non-founders found
+Total genotyping rate in remaining individuals is 0.75
+0 SNPs failed missingness test ( GENO > 1 )
+0 SNPs failed frequency test ( MAF < 0 )
+After frequency and genotyping pruning, there are 2 SNPs
+After filtering, 1 cases, 1 controls and 0 missing
+After filtering, 2 males, 0 females, and 0 of unspecified sex
+Writing recoded file to [ toy.raw ] 
+
+Analysis finished: Fri Nov  4 14:18:58 2016
+
