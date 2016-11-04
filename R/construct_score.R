@@ -53,12 +53,33 @@ construct_score <- function(
 
 		assert_that(!is.null(assoc))
 		
+		# ----------- #
 		flog.info("Reading in and formatting the raw file.")
 	
 		raw <- fread(file, h = T)
 
-		
+		# Take in column names and cut off ending
+		raw_names <- colnames(raw)
+		rs_names <- lapply(raw_names[7:length(colnames(raw))],
+				    FUN = function(x) {
+					    return(strsplit(x, "_")[[1]][1])
+				    })
+		new_names <- c(raw_names[1:6], unlist(rs_names))
 
+		colnames(raw) <- new_names
+
+		# ------------- #
+		flog.info("Reading in assoc file and deciding on SNPs to include.")
+
+		assoc_file <- as.data.frame(fread(assoc, h = T))
+		
+		possible_p_names <- c("P", "p", "p-value", "p_value")
+
+		p_name <- possible_p_names[possible_p_names %in% colnames(assoc_file)] 
+	
+		include <- assoc_file[assoc_file[,p_name] < p,] 	
+	
+	
 	} else if(mode == "multiple"){
 		# mutliple code
 	}
