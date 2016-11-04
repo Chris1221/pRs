@@ -88,8 +88,15 @@ construct_score <- function(
 			subset_raw[,colnames(subset_raw) == rs] <- subset_raw[,colnames(subset_raw) == rs]*include$beta[include$rsid == rs]
 
 		} #end for 
-	
-	
+
+		PRS <- colSums(t(subset_raw), na.rm = T)
+
+		score <- raw[,1:6]
+		score$SCORE <- PRS
+		
+		output <- new("PRS")
+		slot(output, "score") <- score
+		
 	} else if(mode == "multiple"){
 		# mutliple code
 	}
