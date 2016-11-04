@@ -22,6 +22,7 @@
 #' 
 #' @importFrom data.table fread
 #' @importFrom assertthat assert_that
+#' @importFrom methods new slot<-
 #' @import futile.logger
 #'
 #' @useDynLib aprs
@@ -77,15 +78,19 @@ construct_score <- function(
 		
 		possible_p_names <- c("P", "p", "p-value", "p_value")
 		p_name <- possible_p_names[possible_p_names %in% colnames(assoc_file)]
+		
+		possible_beta_names <- c("Beta", "beta", "b", "B")
+		beta_name <- possible_beta_names[possible_beta_names %in% colnames(assoc_file)]
+		
 		include <- assoc_file[assoc_file[,p_name] < p,] 
 
 		subset_raw <- raw[ , colnames(raw) %in% include$rsid ] 
 	
 		# REALLY REALLY REALLY SLOW VERSION. WILL HAVE TO IMPROVE BY A LOT.
 
-		for( rs in colnames(raw)) {
+		for( rs in colnames(subset_raw)) {
 		
-			subset_raw[,colnames(subset_raw) == rs] <- subset_raw[,colnames(subset_raw) == rs]*include$beta[include$rsid == rs]
+			subset_raw[,colnames(subset_raw) == rs] <- subset_raw[,colnames(subset_raw) == rs]*include[, beta_name][include$rsid == rs]
 
 		} #end for 
 
@@ -100,5 +105,7 @@ construct_score <- function(
 	} else if(mode == "multiple"){
 		# mutliple code
 	}
+
+	return(output)
 
 }

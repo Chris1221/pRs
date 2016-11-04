@@ -8,7 +8,12 @@ Maintainer: Christopher B Cole <chris.c.1221@gmail.com>
 Description: Impliments methods described in my thesis project as well as Robert
     Meiers theoretical work relating to creating additive PRS models from comorbid
     conditions.
-License: MIT
+License: MIT + file LICENSE
+Depends:
+    assertthat,
+    data.table,
+    futile.logger,
+    methods
 Imports:
     Rcpp (>= 0.12.7),
     RcppArmadillo
