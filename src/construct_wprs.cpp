@@ -15,16 +15,5 @@
 // [[Rcpp::export]]
 arma::vec wprs(char map, char ped, arma::vec assoc) {
 
-	std::ifstream  data(ped);
 
-	    std::string line;
-	    while(std::getline(data,line))
-	    {
-		std::stringstream  lineStream(line);
-		std::string        cell;
-		while(std::getline(lineStream,cell,','))
-		{
-			cout << cell;          
-		}
-	    }
 }

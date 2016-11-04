@@ -2,10 +2,13 @@
 #' 
 #' @description Given input genetic files and association statistics, generate one of a number of polygenic risk scores. See \code{mode}. Tries to guess between plink input and Oxford format.
 #'
+#' @details This is helper code to construct a simple PRS in R. Note that it is currently unoptimized, meaning that it is currently implimented in R and not RcppArmadillo as it will be in the future. 
+#' First it reads in.
+#'
 #' @param file Basename for genetic files (i.e. ${file}.ped ${file}.map). These must be unzipped. If non-standard, please specify seperately.
 #' @param mode One of c("weighted", "unweighted", "additive"). For more details see \code{details}.
 #'
-#' @importFrom assert_that
+#' @importFrom assertthat assert_that
 #' @import futile.logger
 #'
 #' @useDynLib aprs
@@ -38,8 +41,22 @@ construct_score <- function(
 
 
 	flog.info("Reading in and processing.")
+	flog.trace("Using R to read for now, can't figure out the cpp")
+	
+	# Read in using R
+	if(!is.null(file)) { # if base is specified
 
-	#include <Rcpp.h>
+	# Specify map and ped paths through the base
+		map <- paste0(file, ".map")
+		ped <- paste0(file, ".ped")
+
+	} # END map/ped.
+
+	# if the file was null then map and ped are already specified.
+
+	map <- fread(map, h = T)
+	ped <- fread(ped, h = T)
+
 
 
 

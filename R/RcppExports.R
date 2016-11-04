@@ -9,19 +9,3 @@ wprs <- function(map, ped, assoc) {
     .Call('aprs_wprs', PACKAGE = 'aprs', map, ped, assoc)
 }
 
-rcppeigen_hello_world <- function() {
-    .Call('aprs_rcppeigen_hello_world', PACKAGE = 'aprs')
-}
-
-rcppeigen_outerproduct <- function(x) {
-    .Call('aprs_rcppeigen_outerproduct', PACKAGE = 'aprs', x)
-}
-
-rcppeigen_innerproduct <- function(x) {
-    .Call('aprs_rcppeigen_innerproduct', PACKAGE = 'aprs', x)
-}
-
-rcppeigen_bothproducts <- function(x) {
-    .Call('aprs_rcppeigen_bothproducts', PACKAGE = 'aprs', x)
-}
-
