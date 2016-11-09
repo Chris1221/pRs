@@ -5,7 +5,7 @@
 \usepackage{cancel}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-
+\usepackage{color}
 
 \newtheorem{theorem}{Theorem}
 \begin{document}
@@ -17,11 +17,11 @@
 \textbf{Goals:}
 
 \begin{itemize}
-	\item Find $Var(acmPRS)$
-	\item Find $Cov(Y, acmPRS)$
+	\item Find $Var(\text{acmPRS})$
+	\item Find $Cov(Y, \text{acmPRS})$
 \end{itemize}
 
-\subsection{Finding $Var(acmPRS)$:}
+\subsection{Finding $Var(\text{acmPRS})$:}
 
 Define 
 $$ 
@@ -49,9 +49,10 @@ E[\hat{S}_{acm}] &= E[\sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i] \\
 $$
 \end{proof}
 
+\newpage
 
 \begin{theorem}
-$Var(\hat{S}_{acm}) =\sum^c_{i=1}  \frac{m_i n^2_i r^2_i h_i}{h_1}  Var(\hat{\beta}_i) + 2 \sum^c_{i \neq j} n_i n_j r_i r_j \sqrt{\frac{h_i h_j}{h^2_1}} Cov(\hat{S}_i, \hat{S}_j)]$
+$Var(\hat{S}_{acm}) =\sum^c_{i=1}  \frac{m_i n^2_i r^2_i h_i}{h_1}  Var(\hat{\beta}_i) +  \sum^c_{i \neq j} n_i n_j r_i r_j \sqrt{\frac{h_i h_j}{h^2_1}} Cov(\hat{S}_i, \hat{S}_j)]$
 \end{theorem}
 
 \begin{proof}
@@ -62,14 +63,80 @@ Var(\sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i) &= \sum^c_{i=1} Var \
 \end{aligned}
 $$
 
-$$
+\begin{equation}
 \begin{aligned}
 \sum^c_{i=1} Var \left( n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i \right) &= \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}}  Var(\hat{S}_i) \\
-&= \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} m_i Var(\hat{\beta}_i) \\
-\sum_{i \neq j} Cov \left(  n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i,  n_j r_j \sqrt{\frac{h_j}{h_1}} \hat{S}_j \right) &= \sum_{i \neq j} E \left[ \left( n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i \right), \left( n_j r_j \sqrt{\frac{h_j}{h_1}} \hat{S}_j  \right)  \right]
+&= \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} m_i Var(\hat{\beta}_i)      \\
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\sum_{i \neq j} Cov \left(  n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i,  n_j r_j \sqrt{\frac{h_j}{h_1}} \hat{S}_j \right) &= \scriptstyle \sum_{i \neq j} E \left[ \left( n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i \right), \left( n_j r_j \sqrt{\frac{h_j}{h_1}} \hat{S}_j  \right)  \right] + \scriptscriptstyle \cancelto{0}{E \left[ \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}}] \hat{S}_i \right]} \cancelto{0}{E \left[ \sum^c_{j=1} n_j r_j \sqrt{\frac{h_j}{h_1}} \hat{S}_j \right]} \\
+&= \sum_{i \neq j} n_i n_j r_i r_j \sqrt{\frac{h_i h_j}{h^2_1}} E[\hat{S}_i \hat{S}_j]\\ 
+&= \sum_{i \neq j} n_i n_j r_i r_j \sqrt{\frac{h_i h_j}{h^2_1}} Cov \left( \hat{S}_i, \hat{S}_j \right) \\ 
+\end{aligned}
+\end{equation}
+
+
+The above is because
+
+$$
+\begin{aligned}
+Cov( \hat{S}_i, \hat{S}_j) &= E \left[ \hat{S}_i \hat{S}_j \right] + \cancelto{0}{E[ \hat{S}_i]} + \cancelto{0}{E[ \hat{S}_j ]} \\
+&=  E \left[ \hat{S}_i \hat{S}_j \right]
 \end{aligned}
 $$
 
+Combining (1) and (2): 
+
+$$ Var(\hat{S}_{acm}) =\sum^c_{i=1}  \frac{m_i n^2_i r^2_i h_i}{h_1}  Var(\hat{\beta}_i) +  \sum^c_{i \neq j} n_i n_j r_i r_j \sqrt{\frac{h_i h_j}{h^2_1}} Cov(\hat{S}_i, \hat{S}_j)] $$
 
 \end{proof}
+
+\newpage
+
+\begin{theorem}
+$Cov(Y, \text{acmPRS}) = \frac{1}{c} \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} m_i Cov(\hat{\beta}_i, \beta_{Y})$
+\end{theorem}
+
+\begin{proof}
+
+$$
+\begin{aligned}
+\text{Cov}(Y, \text{acmPRS}) &= E[Y \text{acmPRS}] + \cancelto{0}{E[Y]} + \cancelto{0}{E[\text{acmPRS}]} \\
+&= E \left[ \left( \sum^m_{j=1} \beta_{j Y} G_i \right) \left( \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} \sum^m_{j=1} \hat{\beta}_{j i} G_j \right) \right] 
+\end{aligned}
+$$   
+
+\textcolor{red}{I'm really not sure if I'm allowed to do this.}
+
+$$ 
+\begin{aligned}
+E \left[ \left( \sum^m_{j=1} \beta_{j Y} G_i \right) \left( \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} \sum^m_{j=1} \hat{\beta}_{j i} G_j \right) \right] &= E \left[ \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} \left[ \sum^{m_i} \beta_j G_j \right] \frac{1}{c} \left[ \sum^{m_Y} \beta_{jY} G_j \right] \right]
+\end{aligned}
+$$
+
+Here I've brought the $Y$ score inside the summation with a $\frac{1}{c}$ coefficient.
+
+$$
+\begin{aligned}
+&= \frac{1}{c} \sum^c_{i=1} \left[ n_i r_i \sqrt{\frac{h_i}{h_1}} E \left[    \sum^{m_i} \beta_j G_j \sum^{m_Y} \beta_{jY} G_j \right] \right]
+\end{aligned}
+$$
+
+And since by equation (7) in power and predicitve accuracy: $ E \left[ \sum^{m_i} \beta_j G_j \sum^{m_Y} \beta_{jY} G_j \right] = m \text{Cov} (\hat{\beta}_i, \beta_Y)$ 
+
+Then
+$$Cov(Y, \text{acmPRS}) = \frac{1}{c} \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} m_i Cov(\hat{\beta}_i, \beta_{Y})$$
+
+\end{proof}
+
+\newpage
+
+\begin{theorem}
+$R^2_{Y, \text{acmPRS}} = \frac{ \frac{1}{c} \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} m_i Cov(\hat{\beta}_i, \beta_{Y})}{ \left( \sum^c_{i=1}  \frac{m_i n^2_i r^2_i h_i}{h_1}  Var(\hat{\beta}_i) +  \sum^c_{i \neq j} n_i n_j r_i r_j \sqrt{\frac{h_i h_j}{h^2_1}} Cov(\hat{S}_i, \hat{S}_j)] \right) \left( \sigma^2_{g} + \sigma^2_{e} \right)}$
+\end{theorem}
+
 \end{document}
+
