@@ -135,8 +135,20 @@ $$Cov(Y, \text{acmPRS}) = \frac{1}{c} \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}
 \newpage
 
 \begin{theorem}
-$R^2_{Y, \text{acmPRS}} = \frac{ \frac{1}{c} \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} m_i Cov(\hat{\beta}_i, \beta_{Y})}{ \left( \sum^c_{i=1}  \frac{m_i n^2_i r^2_i h_i}{h_1}  Var(\hat{\beta}_i) +  \sum^c_{i \neq j} n_i n_j r_i r_j \sqrt{\frac{h_i h_j}{h^2_1}} Cov(\hat{S}_i, \hat{S}_j)] \right) \left( \sigma^2_{g} + \sigma^2_{e} \right)}$
+$R^2_{Y, \text{acmPRS}} = \frac{ \frac{1}{c^2} \left( \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} m_i Cov(\hat{\beta}_i, \beta_{Y}) \right)^2}{ \left( \sum^c_{i=1}  \frac{m_i n^2_i r^2_i h_i}{h_1}  Var(\hat{\beta}_i) +  \sum^c_{i \neq j} n_i n_j r_i r_j \sqrt{\frac{h_i h_j}{h^2_1}} Cov(\hat{S}_i, \hat{S}_j)] \right) \left( \sigma^2_{g} + \sigma^2_{e} \right)}$
 \end{theorem}
+
+\begin{proof}
+
+$$
+\begin{aligned}
+R^2_{X, Y} = \frac{Cov(X,Y)^2}{Var(X)Var(Y)}
+\end{aligned}
+$$
+
+Sub in equations in theorems (2) and (3).
+
+\end{proof}
 
 \end{document}
 
