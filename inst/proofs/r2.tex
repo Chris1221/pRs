@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Finding correlation for acmPRS}
+
+\maketitle
+
+\textbf{Goals:}
+
+\begin{itemize}
+	\item Find $Var(acmPRS)$
+	\item Find $Cov(Y, acmPRS)$
+\end{itemize}
+
+\subsection{Finding $Var(acmPRS)$:}
+
+Define 
+$$ 
+\begin{aligned} 
+\hat{S}_i &= \sum^{m_i}_{j = 1} \hat{\beta} \mathbf{G_j} \\
+\hat{S}_{acm} &= \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i 
+\end{aligned} 
+$$
+
+
+
+
+$E[\hat{S}_{acm}] = 0$ Since
+
+$$ 
+\begin{aligned}
+E[\hat{S}_{acm}] &= E[\sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i] \\
+&= \sum^c_{i=1} E[n_i r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i] \\
+&= \sum^c_{i=1} n_i r_i \sqrt{\frac{h_i}{h_1}} E[\hat{S}_i]
+\end{aligned}
+$$
+
+and $E[\hat{S}_i] = 0$, $\therefor E[\hat{S}_{acm}] = 0$
+
+
+
+\end{document}
