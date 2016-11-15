@@ -1,107 +1,49 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 
+
 #include <RcppArmadillo.h>
+#include <iostream>
 #include <sstream>
 #include <fstream>
 #include <string>
-#include <iostream>
-
-
-// This comes from
-// 	http://stackoverflow.com/questions/236129/split-a-string-in-c
-// Before you ask, I have no idea.
-void split(const std::string &s, char delim, std::vector<std::string> &elems) {
-	    std::stringstream ss;
-	        ss.str(s);
-		std::string item;
-		while (std::getline(ss, item, delim)) {
-			elems.push_back(item);
-		}
-}
-
-std::vector<std::string> split2(const std::string s, char delim) {
-	std::vector<std::string> elems;
-	split(s, delim, elems);
-	return elems;
-}
+#include <vector>
 
 // [[Rcpp::depends(RcppArmadillo)]]
-
-//' @title Construct a raw weighted PRS from cleaned input
-//' @param map plink style .map file path. (char)
-//' @param ped plink style .ped file path. (char)
-//' @param assoc A vector of beta coefficients passed from R. (arma::vec)
+//' Construct several polygenic risk scores from a matrix of weights. 
+//' @param name Path to .ped file (or binary file, working on this now). 
+//' @param weights A matrix of weights with each row being beta corresponding to the association between SNP at that position and the outcome. 
 // [[Rcpp::export]]
-Rcpp::StringVector prs(std::string path) {	
+std::vector<std::vector<double> > prs(std::string name, arma::mat weights){
+    std::vector<std::vector<double> > result;
+    std::ifstream input (name);
+    std::string lineData;
 
-	Rcpp::StringVector myvector2(4);	
 
-	std::ifstream inf(path);
-	int i = 0;
+
+
+    while(getline(input, lineData))
+    {
+        double d;
+        std::vector<double> row;
+        std::stringstream lineStream(lineData);
+
+        while (lineStream >> d)
+            row.push_back(d);
+
+	// conv_to from std::vector to arma::vec
+	// multiply by weights and take the sum
+	// put that sum into the result vector and push back
 	
-	while(!inf.eof())
-	{
-		Rcpp::Rcout << "i = " << i << std::endl;
-		std::string strInput;
-		getline(inf, strInput);
-		
-		Rcpp::Rcout << "input = " << strInput << std::endl;
-		//std::vector<std::string> output = split2(strInput, ' ');	
-		//myvector2(i) = strInput; 
-		i++;
+	arma::vec score = arma::conv_to<arma::vec>::from(row);
+
+	std::vector<double> si;
+
+	for(arma::uword i = 0; i < weights.n_rows; ++i){
+		si.push_back(accu(score % arma::conv_to<arma::vec>::from(weights.row(i))));
 	}
-
-	return myvector2;	
-
-}
-
-// And now for something completely different
-// [[Rcpp::export]]
-SEXP prs2(std::string path){
-
-	Rcpp::StringVector myvector2(4);	
-
-	std::ifstream inf(path);
-	std::vector<std::string> numvec;
-
-	while(!inf.eof())
-	{
-		std::string strInput;
-		getline(inf, strInput);
-
-		std::string value;
-
-	//	while(strInput >> value){
-	//		numvec.push_back(value);
-	//	}
 	
-	}
+        result.push_back(si);
+    }
 
-	return Rcpp::wrap(numvec);	
-
-}
-
-// need to get each entry into a seperate slot in vector, line by line
-// look into this
-// http://stackoverflow.com/questions/10369483/parse-a-string-by-whitespace-into-a-vector
-
-
-// Attempt 3. Simple this time
-//' @export
-SEXP prs3(std::string path){
-
-	Rcpp::StringVector myvector2(4);	
-
-	std::istringstream s2(path);
-	std::vector<std::string> numvec;
-
-	std::string value;
-
-	while(s2 >> value){
-		numvec.push_back(value);
-	}
-
-
-	return Rcpp::wrap(numvec);	
-
+    return result;
 }
