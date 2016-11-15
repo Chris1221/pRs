@@ -64,16 +64,16 @@ SEXP prs2(std::string path){
 	std::ifstream inf(path);
 	std::vector<std::string> numvec;
 
-	while(inf)
+	while(!inf.eof())
 	{
 		std::string strInput;
 		getline(inf, strInput);
 
 		std::string value;
 
-		while(strInput >> value){
-			numvec.push_back(value);
-		}
+	//	while(strInput >> value){
+	//		numvec.push_back(value);
+	//	}
 	
 	}
 
@@ -84,3 +84,24 @@ SEXP prs2(std::string path){
 // need to get each entry into a seperate slot in vector, line by line
 // look into this
 // http://stackoverflow.com/questions/10369483/parse-a-string-by-whitespace-into-a-vector
+
+
+// Attempt 3. Simple this time
+//' @export
+SEXP prs3(std::string path){
+
+	Rcpp::StringVector myvector2(4);	
+
+	std::istringstream s2(path);
+	std::vector<std::string> numvec;
+
+	std::string value;
+
+	while(s2 >> value){
+		numvec.push_back(value);
+	}
+
+
+	return Rcpp::wrap(numvec);	
+
+}
