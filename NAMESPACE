@@ -2,7 +2,9 @@
 
 export(prs_test)
 exportClasses(PRS)
+import(Rcpp)
 import(futile.logger)
+importFrom(Rcpp,evalCpp)
 importFrom(assertthat,assert_that)
 importFrom(data.table,fread)
 importFrom(methods,"slot<-")

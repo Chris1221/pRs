@@ -24,6 +24,7 @@
 #' @importFrom assertthat assert_that
 #' @importFrom methods new slot<-
 #' @import futile.logger
+#' @import Rcpp
 #'
 #' @useDynLib aprs
 #'
