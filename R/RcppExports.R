@@ -4,6 +4,7 @@
 #' Construct several polygenic risk scores from a matrix of weights. 
 #' @param name Path to .ped file (or binary file, working on this now). 
 #' @param weights A matrix of weights with each row being beta corresponding to the association between SNP at that position and the outcome. 
+#' @export
 prs_test <- function(input, debug, n, weights) {
     .Call('aprs_prs_test', PACKAGE = 'aprs', input, debug, n, weights)
 }
