@@ -64,9 +64,15 @@ double prs_test(std::string input, bool debug, int nsnp)
 			} else {
 				throw std::invalid_argument( "Non binary input or improper input." );
 			}
+			
+			// Think about this
+			results.row(n) = results.row(n) + weights.row(nsnp)*gen;
 
-			printf("%d", gen);	
-				
+
+
+			if(debug){
+				printf("%d", gen);	
+			}
 			
 
 	
