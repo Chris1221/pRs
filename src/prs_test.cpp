@@ -9,7 +9,7 @@
 // [[Rcpp::export]]
 arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weights)
 {
-	std::ifstream in(input, std::ios::binary);
+	std::ifstream in(input.c_str(), std::ios::binary);
   
 	int count = 0; // overall counter
 	int snp = 0; // snp counter, will be reset each time it hits nsnp in order to properly skip blank spcaes.
