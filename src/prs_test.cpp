@@ -1,3 +1,4 @@
+#include <RcppArmadillo.h>
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -6,7 +7,7 @@
 //' @param name Path to .ped file (or binary file, working on this now). 
 //' @param weights A matrix of weights with each row being beta corresponding to the association between SNP at that position and the outcome. 
 // [[Rcpp::export]]
-double prs_test(std::string input, bool debug, int nsnp)
+arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weights)
 {
 	std::ifstream in(input, std::ios::binary);
   
@@ -14,6 +15,10 @@ double prs_test(std::string input, bool debug, int nsnp)
 	int snp = 0; // snp counter, will be reset each time it hits nsnp in order to properly skip blank spcaes.
 	
 	char c;
+
+	arma::uword n_u = n;
+	// def results matrix
+	arma::mat results(n_u, weights.n_cols); // maybe have to convert to unsigned
 
 	while (in.get(c)) {
 		
@@ -40,33 +45,40 @@ double prs_test(std::string input, bool debug, int nsnp)
 		int gen;
 		// Convert to gen and add in to results vector.
 		for(int i = 0; i < 8; i+=2){
-	
+				
 			snp++; // On first snp counter is going to be 1	
 				
 			// ! -------------------- ! //
 			//	CHECK SNP COUNT     //
 			// ! -------------------- ! //		
 			
-			if( std::remainder(snp, nsnp) == 0) {
+			if( std::remainder(snp, n) == 0) {
+				snp = 0;
 				continue;
 			} // If hit the number of SNPs then skip the rest of the byte
 	
-					
+			
+			if( strncmp(bits[i], "0") && strncmp(bits[i+1], "0"){
+				printf("yep")
+			}
+
+
 			// Find gen coding
-			if( bits[i] == 0 & bits[i+1] == 0 ) {
+			if( bits[i] == 0 && bits[i+1] == 0 ) {
 				gen = 0;
-			} else if( bits[i] == 0 & bits[i+1] == 1 ) {
+			} else if( bits[i] == 0 && bits[i+1] == 1 ) {
 				gen = 1; // check
-			} else if( bits[i] == 1 & bits[i+1] == 0 ) {
+			} else if( bits[i] == 1 && bits[i+1] == 0 ) {
 				gen = 0; //missing is the same as 0
-			} else if( bits[i] == 1 & bits[i+1] == 1 ) {
+			} else if( bits[i] == 1 && bits[i+1] == 1 ) {
 				gen = 2;
 			} else {
 				throw std::invalid_argument( "Non binary input or improper input." );
 			}
 			
 			// Think about this
-			results.row(n) = results.row(n) + weights.row(nsnp)*gen;
+			// Need to make results
+			results.row(snp) = results.row(snp) + weights.row(snp)*gen;
 
 
 
@@ -88,6 +100,7 @@ double prs_test(std::string input, bool debug, int nsnp)
 			printf("byte %d\n", count);	
    		}
 
+	
 	}
-	return 0.0;
+	return results;
 }
