@@ -6,6 +6,20 @@
 
 using namespace Rcpp;
 
+// prs_test
+arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weights);
+RcppExport SEXP aprs_prs_test(SEXP inputSEXP, SEXP debugSEXP, SEXP nSEXP, SEXP weightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type input(inputSEXP);
+    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
+    Rcpp::traits::input_parameter< arma::uword >::type n(nSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(prs_test(input, debug, n, weights));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpparma_hello_world
 arma::mat rcpparma_hello_world();
 RcppExport SEXP aprs_rcpparma_hello_world() {
@@ -47,5 +61,17 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpparma_bothproducts(x));
     return rcpp_result_gen;
+END_RCPP
+}
+// split
+void split(const std::string& s, char delim, std::vector<std::string>& elems);
+RcppExport SEXP aprs_split(SEXP sSEXP, SEXP delimSEXP, SEXP elemsSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::string& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string>& >::type elems(elemsSEXP);
+    split(s, delim, elems);
+    return R_NilValue;
 END_RCPP
 }
