@@ -57,10 +57,10 @@ arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weigh
 				continue;
 			} // If hit the number of SNPs then skip the rest of the byte
 	
-			
-			if( strncmp(bits[i], "0") && strncmp(bits[i+1], "0"){
-				printf("yep")
-			}
+// This causes a segfault			
+//			if( strncmp(bits[i], "0") && strncmp(bits[i+1], "0"){
+//				printf("yep")
+//			}
 
 
 			// Find gen coding
