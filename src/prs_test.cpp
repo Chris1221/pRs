@@ -16,9 +16,11 @@ arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weigh
 	
 	char c;
 
+	int n_int = int(n);
 	arma::uword n_u = n;
 	// def results matrix
 	arma::mat results(n_u, weights.n_cols); // maybe have to convert to unsigned
+	results.fill(0);
 
 	while (in.get(c)) {
 		
@@ -45,37 +47,31 @@ arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weigh
 		int gen;
 		// Convert to gen and add in to results vector.
 		for(int i = 0; i < 8; i+=2){
-				
-			snp++; // On first snp counter is going to be 1	
-				
+			
+			
 			// ! -------------------- ! //
 			//	CHECK SNP COUNT     //
 			// ! -------------------- ! //		
-			
-			if( std::remainder(snp, n) == 0) {
+				
+			if( (snp - n) == 0) {
 				snp = 0;
-				continue;
-			} // If hit the number of SNPs then skip the rest of the byte
-	
-// This causes a segfault			
-//			if( strncmp(bits[i], "0") && strncmp(bits[i+1], "0"){
-//				printf("yep")
-//			}
-
-
+				break;
+			} // If hit the number of SNPs then skip the rest of the byte	
 			// Find gen coding
-			if( bits[i] == 0 && bits[i+1] == 0 ) {
+			if( (bits[i] == 0) && (bits[i+1] == 0) ) {
 				gen = 0;
-			} else if( bits[i] == 0 && bits[i+1] == 1 ) {
+			} else if( (bits[i] == 0) && (bits[i+1] == 1) ) {
 				gen = 1; // check
-			} else if( bits[i] == 1 && bits[i+1] == 0 ) {
+			} else if( (bits[i] == 1) && (bits[i+1] == 0) ) {
 				gen = 0; //missing is the same as 0
-			} else if( bits[i] == 1 && bits[i+1] == 1 ) {
+			} else if( (bits[i] == 1) && (bits[i+1] == 1) ) {
 				gen = 2;
 			} else {
 				throw std::invalid_argument( "Non binary input or improper input." );
 			}
-			
+		
+			//printf("%d", i);
+			//printf("%d", i+1);
 			// Think about this
 			// Need to make results
 			results.row(snp) = results.row(snp) + weights.row(snp)*gen;
@@ -86,7 +82,8 @@ arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weigh
 				printf("%d", gen);	
 			}
 			
-
+			snp++; // On first snp counter is going to be 1	
+				
 	
 		}	
 
@@ -94,6 +91,7 @@ arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weigh
 		// only for debug
 		if(debug) {
 			for (int i = 0; i < 8; i++) {
+//				printf("i = %d\n", i);
 				printf("Bit: %d\n",bits[i]);
 			}
 				
