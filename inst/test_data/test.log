@@ -1,0 +1,26 @@
+PLINK v1.90b3.43 64-bit (13 Nov 2016)
+Options in effect:
+  --file plink-1.07-mac-intel/test
+  --make-bed
+  --out test
+
+Hostname: Yves-Marcels-MacBook-Pro.local
+Working directory: /Users/yvesmarcel/repos/aprs/inst/test_data
+Start time: Wed Nov 16 16:19:54 2016
+
+Random number seed: 1479313194
+4096 MB RAM detected; reserving 2048 MB for main workspace.
+Scanning .ped file... done.
+Performing single-pass .bed write (2 variants, 6 people).
+--file: test-temporary.bed + test-temporary.bim + test-temporary.fam written.
+2 variants loaded from .bim file.
+6 people (6 males, 0 females) loaded from .fam.
+6 phenotype values loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 6 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+2 variants and 6 people pass filters and QC.
+Among remaining phenotypes, 3 are cases and 3 are controls.
+--make-bed to test.bed + test.bim + test.fam ... done.
+
+End time: Wed Nov 16 16:19:54 2016

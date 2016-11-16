@@ -22,6 +22,8 @@ arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weigh
 	arma::mat results(n_u, weights.n_cols); // maybe have to convert to unsigned
 	results.fill(0);
 
+	arma::uword which_snp = 0;
+
 	while (in.get(c)) {
 		
 //		char c;
@@ -55,6 +57,7 @@ arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weigh
 				
 			if( (snp - n) == 0) {
 				snp = 0;
+				which_snp = which_snp+1;
 				break;
 			} // If hit the number of SNPs then skip the rest of the byte	
 			// Find gen coding
@@ -74,7 +77,7 @@ arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weigh
 			//printf("%d", i+1);
 			// Think about this
 			// Need to make results
-			results.row(snp) = results.row(snp) + weights.row(snp)*gen;
+			results.row(snp) = results.row(snp) + weights.row(which_snp)*gen;
 
 
 
