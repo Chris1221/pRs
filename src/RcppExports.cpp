@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // plink2r
 arma::mat plink2r(std::string input, bool debug, arma::uword n, arma::mat weights);
-RcppExport SEXP aprs_plink2r(SEXP inputSEXP, SEXP debugSEXP, SEXP nSEXP, SEXP weightsSEXP) {
+RcppExport SEXP pRs_plink2r(SEXP inputSEXP, SEXP debugSEXP, SEXP nSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -22,7 +22,7 @@ END_RCPP
 }
 // prs
 arma::mat prs(std::string input, bool debug, arma::uword n, arma::mat weights);
-RcppExport SEXP aprs_prs(SEXP inputSEXP, SEXP debugSEXP, SEXP nSEXP, SEXP weightsSEXP) {
+RcppExport SEXP pRs_prs(SEXP inputSEXP, SEXP debugSEXP, SEXP nSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -36,7 +36,7 @@ END_RCPP
 }
 // split
 void split(const std::string& s, char delim, std::vector<std::string>& elems);
-RcppExport SEXP aprs_split(SEXP sSEXP, SEXP delimSEXP, SEXP elemsSEXP) {
+RcppExport SEXP pRs_split(SEXP sSEXP, SEXP delimSEXP, SEXP elemsSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::string& >::type s(sSEXP);

@@ -7,7 +7,7 @@
 #' @importFrom Rcpp evalCpp
 #' @export
 plink2r <- function(input, debug, n, weights) {
-    .Call('aprs_plink2r', PACKAGE = 'aprs', input, debug, n, weights)
+    .Call('pRs_plink2r', PACKAGE = 'pRs', input, debug, n, weights)
 }
 
 #' Construct several polygenic risk scores from a matrix of weights. 
@@ -16,10 +16,10 @@ plink2r <- function(input, debug, n, weights) {
 #' @importFrom Rcpp evalCpp
 #' @export
 prs <- function(input, debug, n, weights) {
-    .Call('aprs_prs', PACKAGE = 'aprs', input, debug, n, weights)
+    .Call('pRs_prs', PACKAGE = 'pRs', input, debug, n, weights)
 }
 
 split <- function(s, delim, elems) {
-    invisible(.Call('aprs_split', PACKAGE = 'aprs', s, delim, elems))
+    invisible(.Call('pRs_split', PACKAGE = 'pRs', s, delim, elems))
 }
 

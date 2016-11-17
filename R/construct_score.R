@@ -26,7 +26,7 @@
 #' @import futile.logger
 #' @import Rcpp
 #'
-#' @useDynLib aprs
+#' @useDynLib pRs
 #'
 #' @return An S4 PRS object. Slots include: \cr
 #' \itemize{
