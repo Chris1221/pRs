@@ -49,7 +49,7 @@ make_prs <- function(bfile,
 	beta_name <- possible_beta_names[possible_beta_names %in% colnames(assoc)]
 		
 	# See what kind of P value is present
-	possible_p_names <- c("P", "p", "p-value", "p_value")
+	possible_p_names <- c("P", "p", "p-value", "p_value", "P-value")
 	p_name <- possible_p_names[possible_p_names %in% colnames(assoc)]
 
 	# NSE for select
