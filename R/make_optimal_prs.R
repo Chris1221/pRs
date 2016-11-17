@@ -97,7 +97,7 @@ make_optimal_prs <- function(bfile,
 	#	I'll change it soon. 
 	for(i in p){
 		copy <- ordered
-		copy$BETA[ordered$P > p] <- 0
+		copy$BETA[ordered$P > p[i]] <- 0
 		weights[,i] <- copy$BETA
 	}
 	# This will be different later on.
