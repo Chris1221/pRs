@@ -9,7 +9,7 @@
 //' @importFrom Rcpp evalCpp
 //' @export
 // [[Rcpp::export]]
-arma::mat prs_test(std::string input, bool debug, arma::uword n, arma::mat weights)
+arma::mat prs(std::string input, bool debug, arma::uword n, arma::mat weights)
 {
 	std::ifstream in(input.c_str(), std::ios::binary);
   
