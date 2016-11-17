@@ -177,8 +177,6 @@ make_optimal_prs <- function(bfile,
 		)
 	
 
-	output
-
-	return(s)
+	return(output)		
 
 }
