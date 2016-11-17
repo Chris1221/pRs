@@ -18,7 +18,7 @@
 #'
 #' @export
 
-make_prs <- function(bfile,
+make_optimal_prs <- function(bfile,
 		     assoc,
 		     p,
 		     pheno
