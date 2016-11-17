@@ -6,6 +6,20 @@
 
 using namespace Rcpp;
 
+// plink2r
+arma::mat plink2r(std::string input, bool debug, arma::uword n, arma::mat weights);
+RcppExport SEXP aprs_plink2r(SEXP inputSEXP, SEXP debugSEXP, SEXP nSEXP, SEXP weightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type input(inputSEXP);
+    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
+    Rcpp::traits::input_parameter< arma::uword >::type n(nSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(plink2r(input, debug, n, weights));
+    return rcpp_result_gen;
+END_RCPP
+}
 // prs
 arma::mat prs(std::string input, bool debug, arma::uword n, arma::mat weights);
 RcppExport SEXP aprs_prs(SEXP inputSEXP, SEXP debugSEXP, SEXP nSEXP, SEXP weightsSEXP) {

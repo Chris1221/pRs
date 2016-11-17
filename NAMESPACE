@@ -2,6 +2,7 @@
 
 export(make_optimal_prs)
 export(make_prs)
+export(plink2r)
 export(prs)
 exportClasses(PRS)
 import(Rcpp)
