@@ -4,7 +4,7 @@
 \alias{make_optimal_prs}
 \title{Construct and return the optimal PRS based on either P value or R2.}
 \usage{
-make_optimal_prs(bfile, assoc, p, pheno)
+make_optimal_prs(bfile, assoc, p, pheno = NULL)
 }
 \arguments{
 \item{bfile}{Base file name of the binary file set used for the analysis. See details for construction and instructions.}
@@ -13,7 +13,7 @@ make_optimal_prs(bfile, assoc, p, pheno)
 
 \item{p}{A sequence of P value thresholds at which to cut off the score.}
 
-\item{pheno}{(optional) Vector or file path to phenotype to use for association analysis. This is required by other functions but this function by default just returns the score so you can do the association yourself.}
+\item{pheno}{Vector or file path to phenotype to use for association analysis. This is required by other functions but this function by default just returns the score so you can do the association yourself. This defaults to using the phenotype in the .fam file provided, though you can optionally provide a PLINK style phenotype file.}
 }
 \value{
 (Currently) A data frame with three columns: FID, IID, and the generated score.

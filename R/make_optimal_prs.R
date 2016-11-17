@@ -7,7 +7,7 @@
 #' @param bfile Base file name of the binary file set used for the analysis. See details for construction and instructions.
 #' @param assoc File name and path to the assoc file with the beta and P values used to construct the score. 
 #' @param p A sequence of P value thresholds at which to cut off the score.
-#' @param pheno (optional) Vector or file path to phenotype to use for association analysis. This is required by other functions but this function by default just returns the score so you can do the association yourself.
+#' @param pheno Vector or file path to phenotype to use for association analysis. This is required by other functions but this function by default just returns the score so you can do the association yourself. This defaults to using the phenotype in the .fam file provided, though you can optionally provide a PLINK style phenotype file.
 #'
 #' @import futile.logger
 #' @importFrom dplyr %>% select select_
@@ -21,7 +21,7 @@
 make_optimal_prs <- function(bfile,
 		     assoc,
 		     p,
-		     pheno
+		     pheno = NULL
 		){
 	
 	# Checking to make sure that files exist and everything is in order
@@ -126,13 +126,59 @@ make_optimal_prs <- function(bfile,
 	#s$FID = fam[, 1]
 	#s$IID = fam[, 2]
 
-	# Return the straight score (no assoc).
-	#	Later make this into an S4 object
-	#	with more details. 
+
+	# If pheno is not set
+	#	Assume the phenotype in the .fam file 
 	#
-	#	i.e. the n_na above and others such as
-	#		- the P value of assoc
-	#		- the R2 of the score
+	#	This is convenient because it ensures people are in the same order
+	#	otherwise have to make sure this is the case.
+	if(is.null(pheno)){
+		
+		phen <- fam[,6]	
+		
+	} else {
+	
+		flog.fatal("Other phen files not yet handled. Sorry!")
+	
+	}
+
+	# Loop through all weighting schemes and find the P value and R2.
+	#	Store the P values in a P vector
+	#	
+	#	Store the R2 in a vector
+	#
+	#	Later on will want to make this into a plot like PRSice.
+	
+	p_store <- vector()
+	r2_store <- vector()
+
+	for(i in 1:ncol(s)){
+		
+		sum <- summary(lm(phen ~ s[,i]))
+		p_store[i] <- sum$coefficients[2,4]	
+		r2_store[i] <- sum$"adj.r.squared"
+			
+	}
+
+	# Not robust to same P values
+	#	Change this later.
+	optimal_s <- which(p_store == min(p_store))
+
+	output <- new("oPRS",
+		      all_scores = s,
+		      optimal_score = data.frame(
+					FID = fam[,1],
+					IID = fam[,2],
+					SCORE = s[,optimal_s]
+					),
+		      optimal_p = p_store[optimal_s],
+		      optimal_r2 = r2_store[optimal_s],
+		      nsnp = sum(weights[, optimal_s] != 0)
+		)
+	
+
+	output
+
 	return(s)
 
 }
