@@ -39,8 +39,10 @@ make_prs <- function(bfile,
 	#	In a perfect world I would do all this in rcpp 
 	
 	assoc <- fread(assoc, h = T)
-	bim <- fread(paste0(bfile, ".bim"), h = T)[,2]
-	fam <- fread(paste0(bfile, ".fam"), h = T)[,2]
+	bim <- fread(paste0(bfile, ".bim"), h = F) %>%
+		as.data.frame %>%
+		select(V2)
+	fam <- as.data.frame(fread(paste0(bfile, ".fam"), h = T))
 
 
 
@@ -55,10 +57,11 @@ make_prs <- function(bfile,
 	possible_snp_names <- c("SNP", "rsid", "snp")
 	snp_name <- possible_snp_names[possible_snp_names %in% colnames(assoc)]
 
-
+	# Change the P name to workaround the dash confusion
+	colnames(assoc)[colnames(assoc) == p_name] <- "P"
 
 	# NSE for select
-	assoc %<>% select_(snp_name, beta_name, p_name)
+	assoc %<>% select_(snp_name, beta_name, "P")
 
 	# Make common names
 	colnames(assoc) <- c("SNP", "BETA", "P")
@@ -113,7 +116,11 @@ make_prs <- function(bfile,
 	s <- prs(bed, F, n, weights) 
 
 	# Create score output with FID and IID from fam
-	score <- cbind(fam[, 1:2], as.vector(s))
+	score <- data.frame(
+			    FID = fam[, 1],
+			    IID = fam[, 2],
+			    SCORE = as.vector(s)
+			    )
 
 	# Return the straight score (no assoc).
 	#	Later make this into an S4 object
