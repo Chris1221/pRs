@@ -121,10 +121,10 @@ make_optimal_prs <- function(bfile,
 	#	or ?prs
 	s <- prs(bed, F, n, weights) 
 
-	colnames(s) <- paste0("S_", p)
-	s <- as.data.frame(s)
-	s$FID = fam[, 1]
-	s$IID = fam[, 2]
+	#colnames(s) <- paste0("S_", p)
+	#s <- as.data.frame(s)
+	#s$FID = fam[, 1]
+	#s$IID = fam[, 2]
 
 	# Return the straight score (no assoc).
 	#	Later make this into an S4 object
