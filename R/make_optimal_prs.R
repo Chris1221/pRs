@@ -133,6 +133,6 @@ make_optimal_prs <- function(bfile,
 	#	i.e. the n_na above and others such as
 	#		- the P value of assoc
 	#		- the R2 of the score
-	return(score)
+	return(s)
 
 }
