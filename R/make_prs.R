@@ -52,8 +52,13 @@ make_prs <- function(bfile,
 	possible_p_names <- c("P", "p", "p-value", "p_value", "P-value")
 	p_name <- possible_p_names[possible_p_names %in% colnames(assoc)]
 
+	possible_snp_names <- c("SNP", "rsid", "snp")
+	snp_name <- possible_snp_names[possible_snp_names %in% colnames(assoc)]
+
+
+
 	# NSE for select
-	assoc %<>% select_("SNP", beta_name, p_name)
+	assoc %<>% select_(snp_name, beta_name, p_name)
 
 	# Make common names
 	colnames(assoc) <- c("SNP", "BETA", "P")
