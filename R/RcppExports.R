@@ -6,24 +6,8 @@
 #' @param weights A matrix of weights with each row being beta corresponding to the association between SNP at that position and the outcome. 
 #' @importFrom Rcpp evalCpp
 #' @export
-prs_test <- function(input, debug, n, weights) {
-    .Call('aprs_prs_test', PACKAGE = 'aprs', input, debug, n, weights)
-}
-
-rcpparma_hello_world <- function() {
-    .Call('aprs_rcpparma_hello_world', PACKAGE = 'aprs')
-}
-
-rcpparma_outerproduct <- function(x) {
-    .Call('aprs_rcpparma_outerproduct', PACKAGE = 'aprs', x)
-}
-
-rcpparma_innerproduct <- function(x) {
-    .Call('aprs_rcpparma_innerproduct', PACKAGE = 'aprs', x)
-}
-
-rcpparma_bothproducts <- function(x) {
-    .Call('aprs_rcpparma_bothproducts', PACKAGE = 'aprs', x)
+prs <- function(input, debug, n, weights) {
+    .Call('aprs_prs', PACKAGE = 'aprs', input, debug, n, weights)
 }
 
 split <- function(s, delim, elems) {

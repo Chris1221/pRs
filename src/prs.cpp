@@ -17,8 +17,6 @@ arma::mat prs(std::string input, bool debug, arma::uword n, arma::mat weights)
 	int snp = 0; // snp counter, will be reset each time it hits nsnp in order to properly skip blank spcaes.
 	
 	char c;
-
-	int n_int = int(n);
 	arma::uword n_u = n;
 	// def results matrix
 	arma::mat results(n_u, weights.n_cols); // maybe have to convert to unsigned
