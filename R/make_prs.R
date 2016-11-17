@@ -13,7 +13,7 @@
 #' @importFrom dplyr %>% select select_
 #' @importFrom data.table fread
 #' @importFrom assertthat assert_that
-#' 
+#' @importFrom magrittr %<>% 
 #' @return (Currently) A data frame with three columns: FID, IID, and the generated score. 
 #'
 #' @export
