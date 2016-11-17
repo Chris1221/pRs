@@ -9,7 +9,7 @@ This package has been designed to work on large datasets in a computationally ef
 
 ## Quick Start
 
-`pRs` is currently under development and not indexed by CRAN. As such, you may install directly from Github. Keep in mind that there may be errors, though we would be please to help you use the software at any stage.
+`pRs` is currently under development and not indexed by CRAN. As such, you may install directly from Github. Keep in mind that there may be errors, though we would be pleased to help you use the software at any stage.
 
 ```R
 devtools::install_github("Chris1221/pRs")
