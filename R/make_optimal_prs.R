@@ -30,7 +30,7 @@ make_optimal_prs <- function(bfile,
 	assert_that(file.exists(paste0(bfile, ".fam")))
 	assert_that(file.exists(assoc))
 	assert_that(is.numeric(p))
-	assert_that(file.exists(pheno))
+	#assert_that(file.exists(pheno))
 
 	# Read in SNPs and align against the .assoc file
 	# 	to ensure that they are in the right order.
