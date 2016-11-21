@@ -68,14 +68,23 @@ replace_weights <-
 	assoc1 %<>% select_("RSID", "BETA", "P") 
 	assoc2 %<>% select_("RSID", "BETA", "P") 
 
-	base::merge(assoc1, 
+	# This gets sorted but I dont think thats a problem.
+	output <- base::merge(assoc1, 
 		    assoc2,
 		    by = "RSID",
 		    all.x = TRUE,
 		    all.y = FALSE) %>% 
-			    select(RSID,BETA.y, P.x) %>%
-				write.table(file = file,
-					    col.names = F,
-					    row.names = F,
-					    quote = F)
+			    select(RSID,BETA.y, P.x) 
+			    
+			    
+	colnames(output) <- c("RSID", "BETA", "P")
+	
+	output$BETA[is.na(output$P)] <- NA
+	output$P[is.na(output$BETA)] <- NA
+
+	write.table(output,
+		    file = file,
+		    col.names = F,
+		    row.names = F,
+		    quote = F)
 }
