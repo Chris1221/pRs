@@ -1,6 +1,6 @@
 library(pRs)
 
-cmb <- make_optimal_comorbid_prs(
+cmb <- make_optimal_comborbid_prs(
 				 bfile = "/scratch/hpc2862/OH/grs/plink/OHGS_A2_ALL_imp_b_s1",
 				 assoc = c("cad_weights_hdl.assoc", 
 					   "cad_weights_ldl.assoc",
