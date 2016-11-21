@@ -15,6 +15,7 @@ setClass("PRS",
 setClass("oPRS",
 	 representation(
 		all_scores = "matrix",
+		p = "vector",
 		optimal_score = "data.frame",
 		optimal_p = "numeric",
 		optimal_r2 = "numeric",
