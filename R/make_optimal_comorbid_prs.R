@@ -87,7 +87,7 @@ make_optimal_comborbid_prs <- function(bfile,
 		possible_p_names <- c("P", "p", "p-value", "p_value", "P-value")
 		p_name <- possible_p_names[possible_p_names %in% colnames(assoc)]
 
-		possible_snp_names <- c("SNP", "rsid", "snp")
+		possible_snp_names <- c("SNP", "rsid", "snp", "RSID")
 		snp_name <- possible_snp_names[possible_snp_names %in% colnames(assoc)]
 
 		# Change the P name to workaround the dash confusion
@@ -144,7 +144,7 @@ make_optimal_comborbid_prs <- function(bfile,
 		#	    |
 		#	    |	
 
-		bed <- paste0(bfile[i], ".bed")
+		bed <- paste0(bfile, ".bed")
 		nsnp = nrow(weights)
 		n = nrow(fam) 
 
