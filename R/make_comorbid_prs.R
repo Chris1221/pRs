@@ -1,6 +1,6 @@
-#' Construct and return the optimal PRS based on either P value or R2. 
+#' Construct and return the comorbid PRS based on a list of fixed P value thresholds.  
 #'
-#' See the PRSice paper for an introduction to the method. 
+#' See our pre-print for an introduction to the method.
 #'
 #' All input takes the form of PLINK files. If your input is in a different format, please convert it beforehand. This program requires binary format input for performance reasons. We also recommend clumping SNPs or some other method for removing LD between markers. See the vignette for assistance on this.
 #'
@@ -24,14 +24,6 @@ make_optimal_prs <- function(bfile,
 		     pheno = NULL
 		){
 	
-	# Checking to make sure that files exist and everything is in order
-	#assert_that(file.exists(paste0(bfile, ".bed")))
-	#assert_that(file.exists(paste0(bfile, ".bim")))
-	#assert_that(file.exists(paste0(bfile, ".fam")))
-	#assert_that(file.exists(assoc))
-	#assert_that(is.numeric(p))
-	#assert_that(file.exists(pheno))
-
 	# Read in SNPs and align against the .assoc file
 	# 	to ensure that they are in the right order.
 	#	
