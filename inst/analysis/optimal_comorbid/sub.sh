@@ -9,7 +9,7 @@
 #$ -o /home/hpc2862/repos/pRs/sub_log.txt
 #!/bin/bash
 
-cd /home/hpc2862/pRs/inst/analysis/optimal_comorbid
+cd /home/hpc2862/repos/pRs/inst/analysis/optimal_comorbid
 
 make cmb.txt
 
