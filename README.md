@@ -1,5 +1,7 @@
 # `pRs`: Polygenic Risk Score Toolkit in R
 
+[![Join the chat at https://gitter.im/polygenic_risk_scores_in_R/Lobby](https://badges.gitter.im/polygenic_risk_scores_in_R/Lobby.svg)](https://gitter.im/polygenic_risk_scores_in_R/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This package has been designed to work on large datasets in a computationally efficient manner. We introduce
 
 - A more efficient (and natively coded) method for finding optimal polygenic risk scores improving on [`PRSice`](prsice.info) able to be run on a laptop.
