@@ -6,7 +6,7 @@
 #' @param assoc2 Path to the second assoc file.
 #' @param file Path to write the resulting assoc file.
 #'
-#' @importFrom dplyr select select_
+#' @importFrom dplyr select select_ filter
 #' @importFrom magrittr %<>%
 #'
 #' @export
@@ -74,7 +74,8 @@ replace_weights <-
 		    by = "RSID",
 		    all.x = TRUE,
 		    all.y = FALSE) %>% 
-			    select(RSID,BETA.y, P.x) 
+			    select(RSID,BETA.y, P.x) %>%
+				    filter(RSID != ".")
 			    
 			    
 	colnames(output) <- c("RSID", "BETA", "P")
@@ -84,7 +85,7 @@ replace_weights <-
 
 	write.table(output,
 		    file = file,
-		    col.names = F,
+		    col.names = T,
 		    row.names = F,
 		    quote = F)
 }
