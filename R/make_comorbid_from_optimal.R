@@ -1,4 +1,8 @@
-#' Construct a comorbid PRS from a list of oPRS objects. 
+#' Construct and return the optimal comorbid PRS based on a list of fixed P value thresholds.  
+#'
+#' See our pre-print for an introduction to the method.
+#'
+#' All input takes the form of PLINK files. If your input is in a different format, please convert it beforehand. This program requires binary format input for performance reasons. We also recommend clumping SNPs or some other method for removing LD between markers. See the vignette for assistance on this.
 #'
 #' @param bfile Vector of base file names of the binary file set used for the analysis. See details for construction and instructions.
 #' @param assoc Vector of file names and paths to the assoc files with the beta and P values used to construct the score. 
@@ -16,16 +20,7 @@
 #'
 #' @export
 
-make_comborbid_from_optimal <- 
-	function(
-		oPRS
-	){
-
-	# To make the comorbid score (I know latex doesnt render):
-	# 	
-	#	$$ \hat{S}_{acm} = \sum^c_{i=1} \sqrt{n_i} r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i $A
-	# 
-	# 	We just take the vectors of the scores (assuming  
-
+make_comborbid_from_optimal <- function(		
+					){
 
 }

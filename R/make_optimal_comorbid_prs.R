@@ -8,6 +8,10 @@
 #' @param assoc Vector of file names and paths to the assoc files with the beta and P values used to construct the score. 
 #' @param p A vector of P value thresholds to test each score at.
 #' @param pheno Vector or file path to phenotype to use for association analysis. This defaults to using the phenotype in the .fam file provided, though you can optionally provide a PLINK style phenotype file.
+#' @param n_i Vector of the sample sizes used to deduce the effect sizes presented in assoc.
+#' @param r_i Vector of the genetic covariance of the comorbid trait with the overall phenotype given in pheno.
+#' @param h_i Vector of the heritability of each of the comorbid traits.
+#' @param h_1 The chip heritability.
 #' @param mode See details. If mode is set to 1, then P value thresholds are estimated seperately for each of the different scores prior to their combination. If mode is set to 2, then P values thresholds are estimated *all together* to create the optimal score. Mode 2 is significantly slower than mode 1 for obvious reasons.
 #' @param training The algorithm used to train the scores. Defaults to 10 times cross validation. 
 #'
@@ -24,6 +28,10 @@ make_optimal_comborbid_prs <- function(bfile,
 		     assoc,
 		     p,
 		     pheno = NULL,
+		     n_i,
+		     r_i,
+		     h_i,
+		     h1,
 		     mode = 1,
 		     training = "cv"
 		){
@@ -46,14 +54,15 @@ make_optimal_comborbid_prs <- function(bfile,
 
 	# 	Make sure that everythign is the same legnth otherwise 
 	#		it doesn't make much sense.
-	assert_that(length(bfile) == length(assoc))	
-	
+	assert_that(length(n_i) == length(assoc))	
+	assert_that(length(h_i) == length(assoc))	
+	assert_that(length(r_i) == length(assoc))	
 
 	#	Create an output list which will have each entry as an oPRS objectA
 	output <- list()
 
 	#	Loop through all the entries.
-	for( i in 1:length(bfile)){
+	for( i in 1:length(assoc)){
 
 
 		# Read in SNPs and align against the .assoc file
@@ -63,10 +72,10 @@ make_optimal_comborbid_prs <- function(bfile,
 		#	In a perfect world I would do all this in rcpp 
 
 		assoc <- fread(assoc[i], h = T)
-		bim <- fread(paste0(bfile[i], ".bim"), h = F) %>%
+		bim <- fread(paste0(bfile, ".bim"), h = F) %>%
 			as.data.frame %>%
 			select(V2)
-		fam <- as.data.frame(fread(paste0(bfile[i], ".fam"), h = T))
+		fam <- as.data.frame(fread(paste0(bfile, ".fam"), h = T))
 
 
 
@@ -198,7 +207,10 @@ make_optimal_comborbid_prs <- function(bfile,
 						),
 			      optimal_p = p_store[optimal_s],
 			      optimal_r2 = r2_store[optimal_s],
-			      nsnp = sum(weights[, optimal_s] != 0)
+			      nsnp = sum(weights[, optimal_s] != 0),
+			      n_i = n_i[i],
+			      h_i = h_i[i],
+			      r_i = r_i[i]
 			)
 	}	
 
