@@ -34,7 +34,7 @@ replace_weights <-
 	possible_p_names <- c("P", "p", "p-value", "p_value", "P-value")
 	p_name1 <- possible_p_names[possible_p_names %in% colnames(assoc1)]
 
-	possible_snp_names <- c("SNP", "rsid", "snp")
+	possible_snp_names <- c("SNP", "rsid", "snp", "legendrs")
 	snp_name1 <- possible_snp_names[possible_snp_names %in% colnames(assoc1)]
 
 	# Change the P name to workaround the dash confusion
@@ -50,10 +50,10 @@ replace_weights <-
 	beta_name2 <- possible_beta_names[possible_beta_names %in% colnames(assoc2)]
 		
 	# See what kind of P value is present
-	possible_p_names <- c("P", "p", "p-value", "p_value", "P-value")
+	possible_p_names <- c("P", "p", "p-value", "p_value", "P-value", "p_dgc")
 	p_name2 <- possible_p_names[possible_p_names %in% colnames(assoc2)]
 
-	possible_snp_names <- c("SNP", "rsid", "snp")
+	possible_snp_names <- c("SNP", "rsid", "snp", "legendrs")
 	snp_name2 <- possible_snp_names[possible_snp_names %in% colnames(assoc2)]
 
 	# Change the P name to workaround the dash confusion
