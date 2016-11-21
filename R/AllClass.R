@@ -19,7 +19,7 @@ setClass("oPRS",
 		optimal_score = "data.frame",
 		optimal_p = "numeric",
 		optimal_r2 = "numeric",
-		nsnp = "numeric"
+		nsnp = "numeric",
 		n_i = "numeric",
 		r_i = "numeric",
 		h_i = "numeric"

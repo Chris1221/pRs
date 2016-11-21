@@ -18,14 +18,45 @@
 
 make_comborbid_from_optimal <- 
 	function(
-		oPRS
+		oPRS,
+		h_1
 	){
 
 	# To make the comorbid score (I know latex doesnt render):
 	# 	
 	#	$$ \hat{S}_{acm} = \sum^c_{i=1} \sqrt{n_i} r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i $A
 	# 
-	# 	We just take the vectors of the scores (assuming  
+	# 	We just take the vectors of the scores (assuming that the IDs are in the correct order). 
+	#		multiply them by their respective parameters
+	#		and sum them up into the comorbid score.
+
+	# Make sure that the legnth is more than 1, otherwise it doesnt make much sense.
+	assert_that(length(oPRS) > 1)
+
+	SCORE <- vector()
+
+	for(i in length(oPRS)) {
+
+		# Just to make it easier to type.
+		s <- oPRS[[i]] 
+
+		SCORE <- SCORE +
+			( 
+			 sqrt(s@n_i) * 
+			 s@r_i *
+			 sqrt( s@h_i / h_1 ) *
+			 s@optimal_score$SCORE
+		 	)
+
+	}
+
+	output <- data.frame(
+			FID = oprs[[1]]@optimal_score$FID,
+			IID = oprs[[1]]@optimal_score$IID,
+			SCORE = SCORE
+			)
+	
+	return(output)
 
 
 }

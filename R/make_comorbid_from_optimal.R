@@ -1,8 +1,4 @@
-#' Construct and return the optimal comorbid PRS based on a list of fixed P value thresholds.  
-#'
-#' See our pre-print for an introduction to the method.
-#'
-#' All input takes the form of PLINK files. If your input is in a different format, please convert it beforehand. This program requires binary format input for performance reasons. We also recommend clumping SNPs or some other method for removing LD between markers. See the vignette for assistance on this.
+#' Construct a comorbid PRS from a list of oPRS objects. 
 #'
 #' @param bfile Vector of base file names of the binary file set used for the analysis. See details for construction and instructions.
 #' @param assoc Vector of file names and paths to the assoc files with the beta and P values used to construct the score. 
@@ -20,7 +16,47 @@
 #'
 #' @export
 
-make_comborbid_from_optimal <- function(		
-					){
+make_comborbid_from_optimal <- 
+	function(
+		oPRS,
+		h_1
+	){
+
+	# To make the comorbid score (I know latex doesnt render):
+	# 	
+	#	$$ \hat{S}_{acm} = \sum^c_{i=1} \sqrt{n_i} r_i \sqrt{\frac{h_i}{h_1}} \hat{S}_i $A
+	# 
+	# 	We just take the vectors of the scores (assuming that the IDs are in the correct order). 
+	#		multiply them by their respective parameters
+	#		and sum them up into the comorbid score.
+
+	# Make sure that the legnth is more than 1, otherwise it doesnt make much sense.
+	assert_that(length(oPRS) > 1)
+
+	SCORE <- vector()
+
+	for(i in length(oPRS)) {
+
+		# Just to make it easier to type.
+		s <- oPRS[[i]] 
+
+		SCORE <- SCORE +
+			( 
+			 sqrt(s@n_i) * 
+			 s@r_i *
+			 sqrt( s@h_i / h_1 ) *
+			 s@optimal_score$SCORE
+		 	)
+
+	}
+
+	output <- data.frame(
+			FID = oprs[[1]]@optimal_score$FID,
+			IID = oprs[[1]]@optimal_score$IID,
+			SCORE = SCORE
+			)
+	
+	return(output)
+
 
 }
