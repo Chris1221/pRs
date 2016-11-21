@@ -4,7 +4,7 @@
 \alias{make_optimal_comborbid_prs}
 \title{Construct and return the optimal comorbid PRS based on a list of fixed P value thresholds.}
 \usage{
-make_optimal_comborbid_prs(bfile, assoc, p, pheno = NULL, n_i, r_i, h_i, h1,
+make_optimal_comborbid_prs(bfile, assoc, p, pheno = NULL, n_i, r_i, h_i, h_1,
   mode = 1, training = "cv")
 }
 \arguments{
@@ -22,11 +22,11 @@ make_optimal_comborbid_prs(bfile, assoc, p, pheno = NULL, n_i, r_i, h_i, h1,
 
 \item{h_i}{Vector of the heritability of each of the comorbid traits.}
 
+\item{h_1}{The chip heritability.}
+
 \item{mode}{See details. If mode is set to 1, then P value thresholds are estimated seperately for each of the different scores prior to their combination. If mode is set to 2, then P values thresholds are estimated *all together* to create the optimal score. Mode 2 is significantly slower than mode 1 for obvious reasons.}
 
 \item{training}{The algorithm used to train the scores. Defaults to 10 times cross validation.}
-
-\item{h_1}{The chip heritability.}
 }
 \value{
 (Currently) A data frame with three columns: FID, IID, and the generated score.

@@ -31,7 +31,7 @@ make_optimal_comborbid_prs <- function(bfile,
 		     n_i,
 		     r_i,
 		     h_i,
-		     h1,
+		     h_1,
 		     mode = 1,
 		     training = "cv"
 		){
