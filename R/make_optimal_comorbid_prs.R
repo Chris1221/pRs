@@ -61,8 +61,10 @@ make_optimal_comborbid_prs <- function(bfile,
 	#	Create an output list which will have each entry as an oPRS objectA
 	output <- list()
 
+	assoc_list <- assoc
+
 	#	Loop through all the entries.
-	for( i in 1:length(assoc)){
+	for( i in 1:length(assoc_list)){
 
 
 		# Read in SNPs and align against the .assoc file
@@ -71,7 +73,7 @@ make_optimal_comborbid_prs <- function(bfile,
 		#	This is really slow, I know.	
 		#	In a perfect world I would do all this in rcpp 
 
-		assoc <- fread(assoc[i], h = T)
+		assoc <- fread(assoc_list[i], h = T)
 		bim <- fread(paste0(bfile, ".bim"), h = F) %>%
 			as.data.frame %>%
 			select(V2)
