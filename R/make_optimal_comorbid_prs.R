@@ -168,6 +168,7 @@ make_optimal_comborbid_prs <- function(bfile,
 		if(is.null(pheno)){
 			
 			phen <- fam[,6]	
+			phen[phen == -9] <- NA
 			
 		} else {
 		
