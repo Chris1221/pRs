@@ -8,3 +8,6 @@ cmb.txt: make_cmb.R
 
 clean: 
 	rm cad_weights_*.assoc
+
+sub:
+	qsub -N "sub" sub.sh 
