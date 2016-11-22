@@ -11,3 +11,6 @@ clean:
 
 sub:
 	qsub -N "sub" sub.sh 
+
+oprs: 
+	Rscript optimal_scores.R
