@@ -51,10 +51,10 @@ make_optimal_prs <- function(bfile,
 	beta_name <- possible_beta_names[possible_beta_names %in% colnames(assoc)]
 		
 	# See what kind of P value is present
-	possible_p_names <- c("P", "p", "p-value", "p_value", "P-value")
+	possible_p_names <- c("P", "p", "p-value", "p_value", "P-value", "p-dgc")
 	p_name <- possible_p_names[possible_p_names %in% colnames(assoc)]
 
-	possible_snp_names <- c("SNP", "rsid", "snp")
+	possible_snp_names <- c("SNP", "rsid", "snp", "RSID")
 	snp_name <- possible_snp_names[possible_snp_names %in% colnames(assoc)]
 
 	# Change the P name to workaround the dash confusion
