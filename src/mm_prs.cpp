@@ -2,6 +2,9 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <boost/interprocess/file_mapping.hpp>
+#include <boost/interprocess/mapped_region.hpp>
+
 
 // [[Rcpp::depends(RcppArmadillo)]]
 //' Construct several polygenic risk scores from a matrix of weights. 
@@ -12,6 +15,15 @@
 // [[Rcpp::export]]
 arma::mat mm_prs(std::string input, bool debug, arma::uword n, arma::mat weights)
 {
+
+
+	using boost::interprocess;
+	file_mapping m_file
+		(input.c_str()
+		 ,read
+		);
+
+
 	std::ifstream in(input.c_str(), std::ios::binary);
   
 	int count = 0; // overall counter

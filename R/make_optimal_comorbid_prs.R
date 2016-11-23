@@ -160,66 +160,69 @@ make_optimal_comborbid_prs <- function(bfile,
 		#s <- as.data.frame(s)
 		#s$FID = fam[, 1]
 		#s$IID = fam[, 2]
-
-
-		# If pheno is not set
-		#	Assume the phenotype in the .fam file 
-		#
-		#	This is convenient because it ensures people are in the same order
-		#	otherwise have to make sure this is the case.
-		if(is.null(pheno)){
-			
-			phen <- fam[,6]	
-			phen[phen == -9] <- NA
-			
-		} else {
 		
-			flog.fatal("Other phen files not yet handled. Sorry!")
-		
-		}
+	# trying to see what the s is
 
-		# Loop through all weighting schemes and find the P value and R2.
-		#	Store the P values in a P vector
-		#	
-		#	Store the R2 in a vector
-		#
-		#	Later on will want to make this into a plot like PRSice.
-		
-		p_store <- vector()
-		r2_store <- vector()
-
-		for(i in 1:ncol(s)){
-			
-			sum <- summary(lm(phen ~ s[,i]))
-			p_store[i] <- sum$coefficients[2,4]	
-			r2_store[i] <- sum$"adj.r.squared"
-				
-		}
-
-		# Not robust to same P values
-		#	Change this later.
-		optimal_s <- which(p_store == min(p_store))
-
-		output[[i]] <- new("oPRS",
-			      all_scores = s,
-			      p = p,
-			      optimal_score = data.frame(
-						FID = fam[,1],
-						IID = fam[,2],
-						SCORE = s[,optimal_s]
-						),
-			      optimal_p = p_store[optimal_s],
-			      optimal_r2 = r2_store[optimal_s],
-			      nsnp = sum(weights[, optimal_s] != 0),
-			      n_i = n_i[i],
-			      h_i = h_i[i],
-			      r_i = r_i[i]
-			)
+		output[[i]] <- s
+#
+#		# If pheno is not set
+#		#	Assume the phenotype in the .fam file 
+#		#
+#		#	This is convenient because it ensures people are in the same order
+#		#	otherwise have to make sure this is the case.
+#		if(is.null(pheno)){
+#			
+#			phen <- fam[,6]	
+#			phen[phen == -9] <- NA
+#			
+#		} else {
+#		
+#			flog.fatal("Other phen files not yet handled. Sorry!")
+#		
+#		}
+#
+#		# Loop through all weighting schemes and find the P value and R2.
+#		#	Store the P values in a P vector
+#		#	
+#		#	Store the R2 in a vector
+#		#
+#		#	Later on will want to make this into a plot like PRSice.
+#		
+#		p_store <- vector()
+#		r2_store <- vector()
+#
+#		for(i in 1:ncol(s)){
+#			
+#			sum <- summary(lm(phen ~ s[,i]))
+#			p_store[i] <- sum$coefficients[2,4]	
+#			r2_store[i] <- sum$"adj.r.squared"
+#				
+#		}
+#
+#		# Not robust to same P values
+#		#	Change this later.
+#		optimal_s <- which(p_store == min(p_store))
+#
+#		output[[i]] <- new("oPRS",
+#			      all_scores = s,
+#			      p = p,
+#			      optimal_score = data.frame(
+#						FID = fam[,1],
+#						IID = fam[,2],
+#						SCORE = s[,optimal_s]
+#						),
+#			      optimal_p = p_store[optimal_s],
+#			      optimal_r2 = r2_store[optimal_s],
+#			      nsnp = sum(weights[, optimal_s] != 0),
+#			      n_i = n_i[i],
+#			      h_i = h_i[i],
+#			      r_i = r_i[i]
+#			)
 	}	
 
 	# Rather than hard coding this, I'm going to make a seperate function to combine oPRS 
 
-	output <- make_comorbid_from_optimal(output, h_1)
+#	output <- make_comorbid_from_optimal(output, h_1)
 
 	return(output)		
 
