@@ -18,4 +18,4 @@ cmb <- make_optimal_comborbid_prs(
 				 h_1 = 0.30
 				 )
 
-write.table(cmb, file = "cmb.txt")
+save.image("cmb.Rdata")
