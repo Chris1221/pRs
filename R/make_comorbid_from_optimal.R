@@ -16,10 +16,11 @@
 #'
 #' @export
 
-make_comborbid_from_optimal <- 
+make_comorbid_from_optimal <- 
 	function(
 		oPRS,
-		h_1
+		h_1,
+		phen
 	){
 
 	# To make the comorbid score (I know latex doesnt render):
@@ -33,7 +34,8 @@ make_comborbid_from_optimal <-
 	# Make sure that the legnth is more than 1, otherwise it doesnt make much sense.
 	assert_that(length(oPRS) > 1)
 
-	SCORE <- vector()
+	SCORE <- numeric(nrow(oPRS[[1]]@optimal_score$FID))
+
 
 	for(i in length(oPRS)) {
 
@@ -51,9 +53,10 @@ make_comborbid_from_optimal <-
 	}
 
 	output <- data.frame(
-			FID = oprs[[1]]@optimal_score$FID,
-			IID = oprs[[1]]@optimal_score$IID,
-			SCORE = SCORE
+			FID = oPRS[[1]]@optimal_score$FID,
+			IID = oPRS[[1]]@optimal_score$IID,
+			SCORE = SCORE,
+			PHEN = phen
 			)
 	
 	return(output)

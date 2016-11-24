@@ -255,7 +255,7 @@ make_optimal_comborbid_prs <- function(bfile,
 
 	# Rather than hard coding this, I'm going to make a seperate function to combine oPRS 
 
-#	output <- make_comorbid_from_optimal(output, h_1)
+	output <- make_comorbid_from_optimal(output, h_1, phen)
 
 	return(output)		
 
