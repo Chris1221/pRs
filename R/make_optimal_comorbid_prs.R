@@ -149,10 +149,10 @@ make_optimal_comborbid_prs <- function(bfile,
 		flog.debug("Looping around P values")	
 		# This is super friggen slow
 		#	I'll change it soon. 
-		for(i in 1:length(p)){
+		for(j in 1:length(p)){
 			copy <- ordered
-			copy$BETA[ordered$P > p[i]] <- 0
-			weights[,i] <- copy$BETA
+			copy$BETA[ordered$P > p[j]] <- 0
+			weights[,j] <- copy$BETA
 		}
 		# This will be different later on.
 		#
