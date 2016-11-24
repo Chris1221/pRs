@@ -217,21 +217,25 @@ make_optimal_comborbid_prs <- function(bfile,
 		p_store <- vector()
 		r2_store <- vector()
 
-		for(i in 1:ncol(s)){
+		for(j in 1:ncol(s)){
 			
-			sum <- summary(lm(phen ~ s[,i]))
-			p_store[i] <- sum$coefficients[2,4]	
-			r2_store[i] <- sum$"adj.r.squared"
+			sum <- summary(lm(phen ~ s[,j]))
+			
+			if( nrow(sum$coefficients) == 1){
+				   p_store[j] <- 1
+			} else {
+				p_store[j] <- sum$coefficients[2,4]	
+			}
+			r2_store[j] <- sum$"adj.r.squared"
 				
 		}
 
 		# Not robust to same P values
 		#	Change this later.
 		optimal_s <- which(p_store == min(p_store))
-		flog.debug("%s minimum P value", min(p_store))
+		flog.debug("%d minimum P value", min(p_store))
 
 
-		flog.debug("writing")
 		output[[i]] <- new("oPRS",
 			      all_scores = s,
 			      p = p,
