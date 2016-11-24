@@ -228,7 +228,7 @@ make_optimal_comborbid_prs <- function(bfile,
 		# Not robust to same P values
 		#	Change this later.
 		optimal_s <- which(p_store == min(p_store))
-		flog.debug("%d minimum P value", min(p_store))
+		flog.debug("%s minimum P value", min(p_store))
 
 
 		flog.debug("writing")
