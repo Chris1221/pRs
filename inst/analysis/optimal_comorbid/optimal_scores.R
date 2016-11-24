@@ -15,4 +15,4 @@ tg <- make_optimal_prs(bfile = "/scratch/hpc2862/OH/grs/plink/OHGS_C2_ALL_imp_b_
 			p = seq(0, 0.5, by = 0.01)
 			)
 
-save.image(file = "oprs.Rdata")
+save.image(file = "~/oprs.Rdata")
