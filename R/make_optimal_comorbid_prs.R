@@ -36,6 +36,9 @@ make_optimal_comborbid_prs <- function(bfile,
 		     training = "cv"
 		){
 
+
+	flog.threshold(DEBUG)
+
 	# Now we have the list of the binary files in bfile
 	#	For example
 	#		bfile <- c(	
@@ -63,6 +66,9 @@ make_optimal_comborbid_prs <- function(bfile,
 
 	assoc_list <- assoc
 
+
+	flog.debug("Starting loop")
+
 	#	Loop through all the entries.
 	for( i in 1:length(assoc_list)){
 
@@ -73,13 +79,20 @@ make_optimal_comborbid_prs <- function(bfile,
 		#	This is really slow, I know.	
 		#	In a perfect world I would do all this in rcpp 
 
+		flog.debug("Reading %s", assoc_list[i])
 		assoc <- fread(assoc_list[i], h = T)
+
+		flog.debug("Reading bim %s", bfile)
 		bim <- fread(paste0(bfile, ".bim"), h = F) %>%
 			as.data.frame %>%
 			select(V2)
+
+		flog.debug("Reading fam")
 		fam <- as.data.frame(fread(paste0(bfile, ".fam"), h = T))
 
 
+
+		flog.debug("Replacing betas and Ps")
 
 		# See what kind of effect size is present.	
 		possible_beta_names <- c("Beta", "beta", "b", "B", "BETA", "OR", "or", "odds ratio")
@@ -102,6 +115,7 @@ make_optimal_comborbid_prs <- function(bfile,
 		colnames(assoc) <- c("SNP", "BETA", "P")
 		colnames(bim) <- c("SNP")
 
+		flog.debug("Merging")
 		# Merge together on basis of SNPs and keep the right order
 		ordered <- merge(bim, assoc, all.x = T, all.y = F, sort = F)		
 
@@ -126,8 +140,13 @@ make_optimal_comborbid_prs <- function(bfile,
 		#
 		#	but I think that I can still use the same base function.
 
+		flog.debug("Making weights matrix")
 		weights <- matrix(nrow = length(ordered$BETA), ncol = length(p))
+		flog.debug("%d rows", nrow(weights))
+		flog.debug("%d cols", ncol(weights))
 
+
+		flog.debug("Looping around P values")	
 		# This is super friggen slow
 		#	I'll change it soon. 
 		for(i in 1:length(p)){
@@ -150,12 +169,19 @@ make_optimal_comborbid_prs <- function(bfile,
 		nsnp = nrow(weights)
 		n = nrow(fam) 
 
+
+		flog.debug("Making s")
 		# Call cpp function to create prs
 		# 
 		#	see src/prs.cpp for full details
 		#	or ?prs
 		s <- prs(bed, F, n, weights) 
 
+
+		flog.debug("s is finished.")
+
+		flog.debug("%d rows", nrow(s))
+		flog.debug("%d cols", ncol(s))
 		#colnames(s) <- paste0("S_", p)
 		#s <- as.data.frame(s)
 		#s$FID = fam[, 1]
@@ -163,61 +189,64 @@ make_optimal_comborbid_prs <- function(bfile,
 		
 	# trying to see what the s is
 
-		output[[i]] <- s
-#
-#		# If pheno is not set
-#		#	Assume the phenotype in the .fam file 
-#		#
-#		#	This is convenient because it ensures people are in the same order
-#		#	otherwise have to make sure this is the case.
-#		if(is.null(pheno)){
-#			
-#			phen <- fam[,6]	
-#			phen[phen == -9] <- NA
-#			
-#		} else {
-#		
-#			flog.fatal("Other phen files not yet handled. Sorry!")
-#		
-#		}
-#
-#		# Loop through all weighting schemes and find the P value and R2.
-#		#	Store the P values in a P vector
-#		#	
-#		#	Store the R2 in a vector
-#		#
-#		#	Later on will want to make this into a plot like PRSice.
-#		
-#		p_store <- vector()
-#		r2_store <- vector()
-#
-#		for(i in 1:ncol(s)){
-#			
-#			sum <- summary(lm(phen ~ s[,i]))
-#			p_store[i] <- sum$coefficients[2,4]	
-#			r2_store[i] <- sum$"adj.r.squared"
-#				
-#		}
-#
-#		# Not robust to same P values
-#		#	Change this later.
-#		optimal_s <- which(p_store == min(p_store))
-#
-#		output[[i]] <- new("oPRS",
-#			      all_scores = s,
-#			      p = p,
-#			      optimal_score = data.frame(
-#						FID = fam[,1],
-#						IID = fam[,2],
-#						SCORE = s[,optimal_s]
-#						),
-#			      optimal_p = p_store[optimal_s],
-#			      optimal_r2 = r2_store[optimal_s],
-#			      nsnp = sum(weights[, optimal_s] != 0),
-#			      n_i = n_i[i],
-#			      h_i = h_i[i],
-#			      r_i = r_i[i]
-#			)
+#		output[[i]] <- s
+
+		# If pheno is not set
+		#	Assume the phenotype in the .fam file 
+		#
+		#	This is convenient because it ensures people are in the same order
+		#	otherwise have to make sure this is the case.
+		if(is.null(pheno)){
+			
+			phen <- fam[,6]	
+			phen[phen == -9] <- NA
+			
+		} else {
+		
+			flog.fatal("Other phen files not yet handled. Sorry!")
+		
+		}
+
+		# Loop through all weighting schemes and find the P value and R2.
+		#	Store the P values in a P vector
+		#	
+		#	Store the R2 in a vector
+		#
+		#	Later on will want to make this into a plot like PRSice.
+		
+		p_store <- vector()
+		r2_store <- vector()
+
+		for(i in 1:ncol(s)){
+			
+			sum <- summary(lm(phen ~ s[,i]))
+			p_store[i] <- sum$coefficients[2,4]	
+			r2_store[i] <- sum$"adj.r.squared"
+				
+		}
+
+		# Not robust to same P values
+		#	Change this later.
+		optimal_s <- which(p_store == min(p_store))
+		flog.debug("%d minimum P value", min(p_store))
+
+
+		flog.debug("writing")
+		output[[i]] <- new("oPRS",
+			      all_scores = s,
+			      p = p,
+			      optimal_score = data.frame(
+						FID = fam[,1],
+						IID = fam[,2],
+						SCORE = s[,optimal_s]
+						),
+			      optimal_p = p_store[optimal_s],
+			      optimal_r2 = r2_store[optimal_s],
+			      nsnp = sum(weights[, optimal_s] != 0),
+			      n_i = n_i[i],
+			      h_i = h_i[i],
+			      r_i = r_i[i]
+			)
 	}	
 
 	# Rather than hard coding this, I'm going to make a seperate function to combine oPRS 
