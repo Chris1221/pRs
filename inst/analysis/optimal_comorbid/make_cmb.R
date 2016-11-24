@@ -1,6 +1,6 @@
 library(pRs)
 
- bfile = "hapmap"
+ bfile = "/scratch/hpc2862/OH/grs/plink/OHGS_B2_ALL_imp_b_s1"
  assoc = c("cad_weights_hdl.assoc", 
 	   "cad_weights_ldl.assoc",
 	   "cad_weights_tg.assoc")
