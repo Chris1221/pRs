@@ -91,7 +91,7 @@ arma::mat prs(std::string input, bool debug, arma::uword n, arma::mat weights)
 			if(debug){
 				printf("%d", gen);	
 			}
-			std::cout << "SNP" << snp << std::endl;	
+			//std::cout << "SNP" << snp << std::endl;	
 			snp++; // On first snp counter is going to be 1	
 				
 	
