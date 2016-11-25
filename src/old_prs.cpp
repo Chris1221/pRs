@@ -9,33 +9,25 @@
 //' @importFrom Rcpp evalCpp
 //' @export
 // [[Rcpp::export]]
-arma::mat prs(std::string input, bool debug, arma::uword n, arma::mat weights)
+arma::mat old_prs(std::string input, bool debug, arma::uword n, arma::mat weights)
 {
-	//OLD
-	//std::ifstream in(input.c_str(), std::ios::binary);
-  	
-	//NEW
-	// minimize I/O operations
-	std::ifstream in(input.c_str(), std::ios::in | std::ios::binary );	
-	std::vector<char> v( (std::istreambuf_iterator<char>(in)),
-			      std::istreambuf_iterator<char>() );	
-
-	//std::cout << "size is " << bytes << std::endl;
-
-	arma::uword snp = 0; // snp counter, will be reset each time it hits nsnp in order to properly skip blank spcaes.
-		
+	std::ifstream in(input.c_str(), std::ios::binary);
+  
+	int count = 0; // overall counter
+	int snp = 0; // snp counter, will be reset each time it hits nsnp in order to properly skip blank spcaes.
+	
+	char c;
 	arma::uword n_u = n;
 	// def results matrix
-
 	arma::mat results(n_u, weights.n_cols); // maybe have to convert to unsigned
 	results.fill(0);
 
 	arma::uword which_snp = 0;
 
-	for( int count = 0; count < v.size(); count++)
-	{
-				
-		char c = v[count];	
+	while (in.get(c)) {
+		
+//		char c;
+//		in.get(c);
 		char mask = 1;
 		char bits[8];
 
@@ -49,7 +41,8 @@ arma::mat prs(std::string input, bool debug, arma::uword n, arma::mat weights)
 		//	
 		// Will probably want to check the format portion 
 		// at some point.
-		if(count < 3) continue;
+		count++;
+		if(count < 4) continue;
 	
 		
 	
@@ -91,7 +84,7 @@ arma::mat prs(std::string input, bool debug, arma::uword n, arma::mat weights)
 			if(debug){
 				printf("%d", gen);	
 			}
-			std::cout << "SNP" << snp << std::endl;	
+			
 			snp++; // On first snp counter is going to be 1	
 				
 	
