@@ -11,22 +11,35 @@
 // [[Rcpp::export]]
 bool new_prs(std::string input)
 {
-	
-	std::ifstream fin(input.c_str(), std::ios::in | std::ios::binary );
 
-	std::streamsize size = fin.tellg();
-	std::vector<char> buffer(size);
 
-	Rcpp::Rcout << size;
+	std::ifstream in(input.c_str(), std::ios::in | std::ios::binary );	
+	std::vector<char> v( (std::istreambuf_iterator<char>(in)),
+			      std::istreambuf_iterator<char>() );
 
-	if(fin.read(buffer.data(), size))
+	for(int i = 0; i < v.size(); i++)
 	{
-	
-		Rcpp::Rcout << size;
-		for(int i=0; i < size; i++)
-			Rcpp::Rcout << buffer[i] << std::endl;
+
+		std::cout << i << std::endl;
+
+		char c = v[i];
+		char mask = 1;
+		char bits[8];
+
+		for (int j = 0; j < 8; j++) {
+			bits[j] = (c & (mask << j)) != 0;
+		}
+
+		for (int i = 0; i < 8; i++) {
+//				printf("i = %d\n", i);
+			printf("Bit: %d\n",bits[i]);
+		}
+
+
+
 
 	}
+
 
 	return 0;
 
