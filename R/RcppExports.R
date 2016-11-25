@@ -6,6 +6,24 @@
 #' @param weights A matrix of weights with each row being beta corresponding to the association between SNP at that position and the outcome. 
 #' @importFrom Rcpp evalCpp
 #' @export
+new_prs <- function(input) {
+    .Call('pRs_new_prs', PACKAGE = 'pRs', input)
+}
+
+#' Construct several polygenic risk scores from a matrix of weights. 
+#' @param name Path to .ped file (or binary file, working on this now). 
+#' @param weights A matrix of weights with each row being beta corresponding to the association between SNP at that position and the outcome. 
+#' @importFrom Rcpp evalCpp
+#' @export
+old_prs <- function(input, debug, n, weights) {
+    .Call('pRs_old_prs', PACKAGE = 'pRs', input, debug, n, weights)
+}
+
+#' Construct several polygenic risk scores from a matrix of weights. 
+#' @param name Path to .ped file (or binary file, working on this now). 
+#' @param weights A matrix of weights with each row being beta corresponding to the association between SNP at that position and the outcome. 
+#' @importFrom Rcpp evalCpp
+#' @export
 plink2r <- function(input, debug, n, weights) {
     .Call('pRs_plink2r', PACKAGE = 'pRs', input, debug, n, weights)
 }

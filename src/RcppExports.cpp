@@ -6,6 +6,31 @@
 
 using namespace Rcpp;
 
+// new_prs
+bool new_prs(std::string input);
+RcppExport SEXP pRs_new_prs(SEXP inputSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type input(inputSEXP);
+    rcpp_result_gen = Rcpp::wrap(new_prs(input));
+    return rcpp_result_gen;
+END_RCPP
+}
+// old_prs
+arma::mat old_prs(std::string input, bool debug, arma::uword n, arma::mat weights);
+RcppExport SEXP pRs_old_prs(SEXP inputSEXP, SEXP debugSEXP, SEXP nSEXP, SEXP weightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type input(inputSEXP);
+    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
+    Rcpp::traits::input_parameter< arma::uword >::type n(nSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(old_prs(input, debug, n, weights));
+    return rcpp_result_gen;
+END_RCPP
+}
 // plink2r
 arma::mat plink2r(std::string input, bool debug, arma::uword n, arma::mat weights);
 RcppExport SEXP pRs_plink2r(SEXP inputSEXP, SEXP debugSEXP, SEXP nSEXP, SEXP weightsSEXP) {
