@@ -21,7 +21,8 @@
 make_optimal_prs <- function(bfile,
 		     assoc,
 		     p,
-		     pheno = NULL
+		     pheno = NULL,
+		     mode = "new"
 		){
 	
 	# Checking to make sure that files exist and everything is in order
@@ -119,7 +120,12 @@ make_optimal_prs <- function(bfile,
 	# 
 	#	see src/prs.cpp for full details
 	#	or ?prs
-	s <- prs(bed, F, n, weights) 
+
+	if( mode == "new"){
+		s <- prs(bed, F, n, weights) 
+	} else if( mode == "old" ) {
+		s <- old_prs(bed, F, n, weights)
+	}
 
 	#colnames(s) <- paste0("S_", p)
 	#s <- as.data.frame(s)

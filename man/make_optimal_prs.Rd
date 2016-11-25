@@ -4,7 +4,7 @@
 \alias{make_optimal_prs}
 \title{Construct and return the optimal PRS based on either P value or R2.}
 \usage{
-make_optimal_prs(bfile, assoc, p, pheno = NULL)
+make_optimal_prs(bfile, assoc, p, pheno = NULL, mode = "new")
 }
 \arguments{
 \item{bfile}{Base file name of the binary file set used for the analysis. See details for construction and instructions.}
