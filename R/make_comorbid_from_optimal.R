@@ -34,7 +34,7 @@ make_comorbid_from_optimal <-
 	# Make sure that the legnth is more than 1, otherwise it doesnt make much sense.
 	assert_that(length(oPRS) > 1)
 
-	SCORE <- numeric(nrow(oPRS[[1]]@optimal_score$FID))
+	SCORE <- numeric(nrow(oPRS[[1]]@optimal_score))
 
 
 	for(i in length(oPRS)) {
