@@ -17,10 +17,13 @@ bool new_prs(std::string input)
 	std::vector<char> v( (std::istreambuf_iterator<char>(in)),
 			      std::istreambuf_iterator<char>() );
 
+
+	std::cout << v.size() << std::endl;
+
 	for(int i = 0; i < v.size(); i++)
 	{
 
-		std::cout << i << std::endl;
+		//std::cout << i << std::endl;
 
 		char c = v[i];
 		char mask = 1;
@@ -30,12 +33,12 @@ bool new_prs(std::string input)
 			bits[j] = (c & (mask << j)) != 0;
 		}
 
-		for (int i = 0; i < 8; i++) {
-//				printf("i = %d\n", i);
-			printf("Bit: %d\n",bits[i]);
-		}
+		//for (int i = 0; i < 8; i++) {
+//	//			printf("i = %d\n", i);
+	//		printf("Bit: %d\n",bits[i]);
+	//	}
 
-
+		//std::cout << c << std::endl;
 
 
 	}
