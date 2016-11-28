@@ -37,7 +37,8 @@ WEIGHTS=/scratch/hpc2862/OH/grs/assoc
 cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_weights.txt: 
 	Rscript -e 'library(pRs); make_score_profile(assoc = c("$(WEIGHTS)/jointGwasMc_hdl.txt","$(WEIGHTS)/jointGwasMc_ldl.txt","$(WEIGHTS)/jointGwasMc_tg.txt","$(WEIGHTS)/jointGwasMc_bmi.txt","$(WEIGHTS)/cad.add.fixrand.dgc.anno.160614.out.txt"), file = c("hdl_weights.txt", "ldl_weights.txt", "tg_weights.txt", "bmi_weights.txt", "cad_weights.txt"))'
 
-
+range.txt: 
+	Rscript -e 'library(pRs); make_range_file(range = seq(0.01, 0.5, by = 0.01), file = "range.txt")'
 
 
 
@@ -49,3 +50,4 @@ cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_weights.txt:
 
 clean:
 	rm -f *_weights.txt
+	rm range.txt
