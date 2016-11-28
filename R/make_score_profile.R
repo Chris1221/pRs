@@ -12,7 +12,7 @@ make_score_profile <- function(assoc, file){
 
 	assertthat::assert_that(file.exists(assoc[i]))
 
-	a <- data.table::fread(assoc[i], h = T)
+	a <- as.data.frame(data.table::fread(assoc[i], h = T))
 
 	possible_snp_names <- c("SNP", "rsid", "snp", "legendrs")
 	snp_names <- possible_snp_names[possible_snp_names %in% colnames(a)]
