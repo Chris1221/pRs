@@ -2,6 +2,8 @@
 #'
 #' @param assoc The file path to the assoc file.
 #'
+#' @importFrom dplyr distinct_ %>% 
+#'
 #' @return Nothing.
 #' @export
 

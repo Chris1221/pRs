@@ -80,6 +80,6 @@ clean:
 	rm -f *_weights.txt
 	rm range.txt
 	rm -rf cad hdl ldl tg bmi
-
+	rm *_p.txt
 sub:
 	qsub -N "plink_analysis" sub.sh
