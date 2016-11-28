@@ -8,7 +8,7 @@
 make_score_profile <- function(assoc, file){
 
 
-	for(i in length(assoc[i])){
+	for(i in length(assoc)){
 
 	assertthat::assert_that(file.exists(assoc[i]))
 
