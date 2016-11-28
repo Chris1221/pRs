@@ -10,24 +10,16 @@ make_score_profile <- function(assoc, file){
 
 	for(i in 1:length(assoc)){
 
-	assertthat::assert_that(file.exists(assoc[i]))
+		assertthat::assert_that(file.exists(assoc[i]))
 
-	a <- as.data.frame(data.table::fread(assoc[i], h = T))
+		a <- as.data.frame(data.table::fread(assoc[i], h = T))
 
-	possible_snp_names <- c("SNP", "rsid", "snp", "legendrs")
-	snp_names <- possible_snp_names[possible_snp_names %in% colnames(a)]
+		possible_p_names <- c("P", "p", "p-value", "p_value", "P-value", "p_dgc")
+		p_name <- possible_p_names[possible_p_names %in% colnames(a)]
 
-	possible_a2_names <- c("A2", "a2", "alternate_allele", "other_allele")
-	a2_names <- possible_a2_names[possible_a2_names %in% colnames(a)]
-
-	possible_beta_names <- c("Beta", "beta", "b", "B", "BETA", "OR", "or", "odds ratio")
-	beta_name <- possible_beta_names[possible_beta_names %in% colnames(a)]
-
-	a[, a2_names] <- toupper(a[, a2_names])
-
-	a %>%
-		select_(snp_names, a2_names, beta_name) %>%
-		write.table(file[i], col.names = F, row.names = F, quote = F)
+		a %>%
+			select_(snp_names, p_name) %>%
+			write.table(file[i], col.names = F, row.names = F, quote = F)
 
 	}
 }
