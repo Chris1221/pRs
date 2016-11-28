@@ -50,7 +50,7 @@ estimate_o_together <- function(
 
 			p <- data.frame(one = numeric(), two = numeric(), three = numeric(), four = numeric(), five = numeric(), p = numeric())
 
-			p$p <- lm(s[[1]]$PHENO ~ comorbid_score) %>%
+			p$p <- lm(s[[1]]$PHENO ~ combined_score) %>%
 				summary %>%
 				coef %>%
 				as.data.frame %>%
