@@ -26,6 +26,7 @@ make_score_profile <- function(assoc, file){
 	a[, a2_names] <- toupper(a[, a2_names])
 
 	a %>%
+		distinct_(snp_names, .keep_all = TRUE) %>%
 		select_(snp_names, a2_names, beta_name) %>%
 		write.table(file[i], col.names = F, row.names = F, quote = F)
 

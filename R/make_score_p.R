@@ -22,6 +22,7 @@ make_score_p <- function(assoc, file){
 		p_name <- possible_p_names[possible_p_names %in% colnames(a)]
 
 		a %>%
+			distinct_(snp_names, .keep_all = TRUE) %>%
 			select_(snp_names, p_name) %>%
 			write.table(file[i], col.names = F, row.names = F, quote = F)
 
