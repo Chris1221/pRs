@@ -47,11 +47,28 @@ cad_p.txt hdl_p.txt ldl_p.txt tg_p.txt bmi_p.txt:
 	Rscript -e 'library(pRs); make_score_p(assoc = c("$(WEIGHTS)/jointGwasMc_hdl.txt","$(WEIGHTS)/jointGwasMc_ldl.txt","$(WEIGHTS)/jointGwasMc_tg.txt","$(WEIGHTS)/jointGwasMc_bmi.txt","$(WEIGHTS)/cad.add.fixrand.dgc.anno.160614.out.txt"), file = c("hdl_p.txt", "ldl_p.txt", "tg_p.txt", "bmi_p.txt", "cad_p.txt"))'
 
 make_scores: cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_weights.txt range.txt cad_p.txt hdl_p.txt ldl_p.txt tg_p.txt bmi_p.txt
+	mkdir cad hdl ldl tg bmi
+		
 	$(plink) 	--bfile $(bfile) \
 			--score cad_weights.txt \
 			--q-score-range range.txt cad_p.txt \
 			--out cad/cad
-
+	$(plink) 	--bfile $(bfile) \
+			--score hdl_weights.txt \
+			--q-score-range range.txt hdl_p.txt \
+			--out hdl/hdl
+	$(plink) 	--bfile $(bfile) \
+			--score ldl_weights.txt \
+			--q-score-range range.txt ldl_p.txt \
+			--out ldl/ldl
+	$(plink) 	--bfile $(bfile) \
+			--score tg_weights.txt \
+			--q-score-range range.txt tg_p.txt \
+			--out tg/tg
+	$(plink) 	--bfile $(bfile) \
+			--score bmi_weights.txt \
+			--q-score-range range.txt bmi_p.txt \
+			--out bmi/bmi
 
 ### This is the clean target
 #	
@@ -62,3 +79,7 @@ make_scores: cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_
 clean:
 	rm -f *_weights.txt
 	rm range.txt
+	rm -rf cad hdl ldl tg bmi
+
+sub:
+	qsub -N "plink_analysis" sub.sh
