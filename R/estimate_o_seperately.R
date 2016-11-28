@@ -2,7 +2,7 @@
 #'
 #' @return Nothing
 #'
-#' @importFrom dplyr %>% select slice 
+#' @importFrom dplyr %>% select slice starts_with
 #' @importFrom data.table fread
 #' @export
 estimate_o_seperately <- function(
