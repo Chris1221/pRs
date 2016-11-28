@@ -13,6 +13,7 @@ estimate_o_seperately <- function(
 					h_1
 				){
 
+	score <- list()
 
 	for(j in 1:length(dirs)){
 
