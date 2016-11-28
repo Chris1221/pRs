@@ -14,7 +14,7 @@ estimate_o_together <- function(
 				){
 
 	s <- list()
-
+	i = 1
 	p <- data.frame(one = numeric(), two = numeric(), three = numeric(), four = numeric(), five = numeric(), p = numeric())
 	n = length(dirs)
 
@@ -50,20 +50,21 @@ estimate_o_together <- function(
 			}
 
 
-			p$p <- c(p$p, lm(s[[1]]$PHENO ~ combined_score) %>%
+			p$p[i] <- lm(s[[1]]$PHENO ~ combined_score) %>%
 				summary %>%
 				coef %>%
 				as.data.frame %>%
 				slice(2) %>%
 				select(starts_with("Pr")) %>%
-				as.double)
+				as.double
 
-			p$one <- c(p$one, one)
-			p$two <- c(p$two, two)
-			p$three <- c(p$three, three)
-			p$four <- c(p$four, four)
-			p$five <- c(p$five, five)
+			p$one[i] <- one
+			p$two[i] <- two
+			p$three[i] <- three
+			p$four[i] <- four
+			p$five[i] <- five
 
+			i = i+1
 
 	}}}}}
 
