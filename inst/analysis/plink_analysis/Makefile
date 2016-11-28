@@ -70,6 +70,9 @@ make_scores: cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_
 			--q-score-range range.txt bmi_p.txt \
 			--out bmi/bmi
 
+estimate_weights_seperately: make_scores
+	Rscript -e 'library(pRs); estimate_o_seperately(dirs = c("cad", "bmi", "hdl", "ldl", "tg"), n_i = c(130000, 339000, 180000,180000,180000), r_i = c(1, 0.18, -0.252, 0.25, 0.318), h_i = c(0.07, 0.2, 0.1572, 0.1347, 0.1161), h_1 = 0.3)'           
+
 ### This is the clean target
 #	
 #	It gets rid of all produced files to start the whole analysis over again.

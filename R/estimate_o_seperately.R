@@ -3,7 +3,7 @@
 #' @return Nothing
 #'
 #' @export
-estimate_o_seperately.R <- function(
+estimate_o_seperately <- function(
 					dirs,
 					n_i,
 					r_i,
