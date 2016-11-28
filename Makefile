@@ -1,3 +1,5 @@
+.PHONY: inst 
+
 push: 
 	git add -A
 	git commit -am "update" 
