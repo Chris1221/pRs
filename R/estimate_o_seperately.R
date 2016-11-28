@@ -2,6 +2,8 @@
 #'
 #' @return Nothing
 #'
+#' @importFrom dplyr %>% select slice 
+#' @importFrom data.table fread
 #' @export
 estimate_o_seperately <- function(
 					dirs,
