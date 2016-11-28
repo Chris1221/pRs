@@ -38,3 +38,14 @@ cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_weights.txt:
 	Rscript -e 'library(pRs); make_score_profile(assoc = c("$(WEIGHTS)/jointGwasMc_hdl.txt","$(WEIGHTS)/jointGwasMc_ldl.txt","$(WEIGHTS)/jointGwasMc_tg.txt","$(WEIGHTS)/jointGwasMc_bmi.txt","$(WEIGHTS)/cad.add.fixrand.dgc.anno.160614.out.txt"), file = c("hdl_weights.txt", "ldl_weights.txt", "tg_weights.txt", "bmi_weights.txt", "cad_weights.txt"))'
 
 
+
+
+
+### This is the clean target
+#	
+#	It gets rid of all produced files to start the whole analysis over again.
+#
+#	Be careful.
+
+clean:
+	rm -f *_weights.txt
