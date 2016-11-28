@@ -50,7 +50,7 @@ estimate_o_together <- function(
 			}
 
 
-			p$p[i] <- lm(s[[1]]$PHENO ~ combined_score) %>%
+			p_value <- lm(s[[1]]$PHENO ~ combined_score) %>%
 				summary %>%
 				coef %>%
 				as.data.frame %>%
@@ -58,13 +58,8 @@ estimate_o_together <- function(
 				select(starts_with("Pr")) %>%
 				as.double
 
-			p$one[i] <- one
-			p$two[i] <- two
-			p$three[i] <- three
-			p$four[i] <- four
-			p$five[i] <- five
+			rbind(p, c(one, two, three, four, five, p_value))
 
-			i = i+1
 
 	}}}}}
 
