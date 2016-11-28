@@ -40,6 +40,10 @@ cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_weights.txt:
 range.txt: 
 	Rscript -e 'library(pRs); make_range_file(range = seq(0.01, 0.5, by = 0.01), file = "range.txt")'
 
+cad_p.txt hdl_p.txt ldl_p.txt tg_p.txt bmi_p.txt:
+	Rscript -e 'library(pRs); make_score_p(assoc = c("$(WEIGHTS)/jointGwasMc_hdl.txt","$(WEIGHTS)/jointGwasMc_ldl.txt","$(WEIGHTS)/jointGwasMc_tg.txt","$(WEIGHTS)/jointGwasMc_bmi.txt","$(WEIGHTS)/cad.add.fixrand.dgc.anno.160614.out.txt"), file = c("hdl_p.txt", "ldl_p.txt", "tg_p.txt", "bmi_p.txt", "cad_p.txt"))'
+
+
 
 
 ### This is the clean target

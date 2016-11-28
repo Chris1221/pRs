@@ -1,4 +1,4 @@
-#' Take an assoc file and make an easy to use .scores file.
+#' Take an assoc file and make the second param to q-score-range. 
 #'
 #' @param assoc The file path to the assoc file.
 #'
@@ -17,12 +17,16 @@ make_score_profile <- function(assoc, file){
 	possible_snp_names <- c("SNP", "rsid", "snp", "legendrs")
 	snp_names <- possible_snp_names[possible_snp_names %in% colnames(a)]
 
-	# See what kind of P value is present
-	possible_p_names <- c("P", "p", "p-value", "p_value", "P-value", "p_dgc")
-	p_name <- possible_p_names[possible_p_names %in% colnames(a)]
+	possible_a2_names <- c("A2", "a2", "alternate_allele", "other_allele")
+	a2_names <- possible_a2_names[possible_a2_names %in% colnames(a)]
+
+	possible_beta_names <- c("Beta", "beta", "b", "B", "BETA", "OR", "or", "odds ratio")
+	beta_name <- possible_beta_names[possible_beta_names %in% colnames(a)]
+
+	a[, a2_names] <- toupper(a[, a2_names])
 
 	a %>%
-		select_(snp_names, p_name) %>%
+		select_(snp_names, a2_names, beta_name) %>%
 		write.table(file[i], col.names = F, row.names = F, quote = F)
 
 	}
