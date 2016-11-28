@@ -5,7 +5,7 @@
 #' @return Nothing.
 #' @export
 
-make_score_profile <- function(assoc, file){
+make_score_p <- function(assoc, file){
 
 
 	for(i in 1:length(assoc)){
