@@ -13,7 +13,7 @@ estimate_o_together <- function(
 					h_1
 				){
 
-	score <- list()
+	s <- list()
 
 	n = length(dirs)
 
