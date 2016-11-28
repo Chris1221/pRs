@@ -32,7 +32,7 @@ plot:
 ### These are the subtargets that make up the pieces for the above.
 #
 #	
-WEIGHTS="/scratch/hpc2862/OH/grs/assoc"
+WEIGHTS=/scratch/hpc2862/OH/grs/assoc
 
 cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_weights.txt: 
 	Rscript -e 'library(pRs); make_score_profile(assoc = c("$(WEIGHTS)/jointGwasMc_hdl.txt","$(WEIGHTS)/jointGwasMc_ldl.txt","$(WEIGHTS)/jointGwasMc_tg.txt","$(WEIGHTS)/jointGwasMc_bmi.txt","$(WEIGHTS)/cad.add.fixrand.dgc.anno.160614.out.txt"), file = c("hdl_weights.txt", "ldl_weights.txt", "tg_weights.txt", "bmi_weights.txt", "cad_weights.txt"))'
