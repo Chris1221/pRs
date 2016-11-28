@@ -22,7 +22,9 @@ make_score_profile <- function(assoc, file){
 
 	possible_beta_names <- c("Beta", "beta", "b", "B", "BETA", "OR", "or", "odds ratio")
 	beta_name <- possible_beta_names[possible_beta_names %in% colnames(a)]
-	
+
+	a[, a2_names] <- toupper(a[, a2_names])
+
 	a %>%
 		select_(snp_names, a2_names, beta_name) %>%
 		write.table(file[i], col.names = F, row.names = F, quote = F)
