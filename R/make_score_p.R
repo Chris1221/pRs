@@ -12,10 +12,11 @@ make_score_p <- function(assoc, file){
 
 		assertthat::assert_that(file.exists(assoc[i]))
 
+		a <- as.data.frame(data.table::fread(assoc[i], h = T))
+		
 		possible_snp_names <- c("SNP", "rsid", "snp", "legendrs")
 		snp_names <- possible_snp_names[possible_snp_names %in% colnames(a)]
 
-		a <- as.data.frame(data.table::fread(assoc[i], h = T))
 
 		possible_p_names <- c("P", "p", "p-value", "p_value", "P-value", "p_dgc")
 		p_name <- possible_p_names[possible_p_names %in% colnames(a)]
