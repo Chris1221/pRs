@@ -23,17 +23,17 @@ estimate_o_together <- function(
 				for(four in 1:50){
 					for(five in 1:50){
 
-			profiles1 <- list.files(dir[1], pattern = "*.profile")
-			profiles2 <- list.files(dir[2], pattern = "*.profile")
-			profiles3 <- list.files(dir[3], pattern = "*.profile")
-			profiles4 <- list.files(dir[4], pattern = "*.profile")
-			profiles5 <- list.files(dir[5], pattern = "*.profile")
+			profiles1 <- list.files(dirs[1], pattern = "*.profile")
+			profiles2 <- list.files(dirs[2], pattern = "*.profile")
+			profiles3 <- list.files(dirs[3], pattern = "*.profile")
+			profiles4 <- list.files(dirs[4], pattern = "*.profile")
+			profiles5 <- list.files(dirs[5], pattern = "*.profile")
 
-			s[[1]] <- fread(paste0(dir[1], "/", profiles1[one]), na.strings = "-9", h = T)
-			s[[2]] <- fread(paste0(dir[2], "/", profiles2[two]), na.strings = "-9", h = T)
-			s[[3]] <- fread(paste0(dir[3], "/", profiles3[three]), na.strings = "-9", h = T)
-			s[[4]] <- fread(paste0(dir[4], "/", profiles4[four]), na.strings = "-9", h = T)
-			s[[5]] <- fread(paste0(dir[5], "/", profiles5[five]), na.strings = "-9", h = T)
+			s[[1]] <- fread(paste0(dirs[1], "/", profiles1[one]), na.strings = "-9", h = T)
+			s[[2]] <- fread(paste0(dirs[2], "/", profiles2[two]), na.strings = "-9", h = T)
+			s[[3]] <- fread(paste0(dirs[3], "/", profiles3[three]), na.strings = "-9", h = T)
+			s[[4]] <- fread(paste0(dirs[4], "/", profiles4[four]), na.strings = "-9", h = T)
+			s[[5]] <- fread(paste0(dirs[5], "/", profiles5[five]), na.strings = "-9", h = T)
 
 			combined_score <- numeric(length(s[[1]]$IID))
 
