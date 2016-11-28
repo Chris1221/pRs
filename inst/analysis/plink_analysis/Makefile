@@ -46,7 +46,7 @@ range.txt:
 cad_p.txt hdl_p.txt ldl_p.txt tg_p.txt bmi_p.txt:
 	Rscript -e 'library(pRs); make_score_p(assoc = c("$(WEIGHTS)/jointGwasMc_hdl.txt","$(WEIGHTS)/jointGwasMc_ldl.txt","$(WEIGHTS)/jointGwasMc_tg.txt","$(WEIGHTS)/jointGwasMc_bmi.txt","$(WEIGHTS)/cad.add.fixrand.dgc.anno.160614.out.txt"), file = c("hdl_p.txt", "ldl_p.txt", "tg_p.txt", "bmi_p.txt", "cad_p.txt"))'
 
-make_scores: cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_weights.txt range.txt cad_p.txt hdl_p.txt ldl_p.txt tg_p.txt bmi_p.txt
+done.txt: cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_weights.txt range.txt cad_p.txt hdl_p.txt ldl_p.txt tg_p.txt bmi_p.txt
 	mkdir cad hdl ldl tg bmi
 		
 	$(plink) 	--bfile $(bfile) \
@@ -70,7 +70,9 @@ make_scores: cad_weights.txt hdl_weights.txt ldl_weights.txt tg_weights.txt bmi_
 			--q-score-range range.txt bmi_p.txt \
 			--out bmi/bmi
 
-estimate_weights_seperately: make_scores
+	touch done.txt
+	
+estimate_weights_seperately:
 	Rscript -e 'library(pRs); estimate_o_seperately(dirs = c("cad", "bmi", "hdl", "ldl", "tg"), n_i = c(130000, 339000, 180000,180000,180000), r_i = c(1, 0.18, -0.252, 0.25, 0.318), h_i = c(0.07, 0.2, 0.1572, 0.1347, 0.1161), h_1 = 0.3)'           
 
 ### This is the clean target
